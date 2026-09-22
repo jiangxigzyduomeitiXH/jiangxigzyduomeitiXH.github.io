@@ -6,6 +6,12 @@
 <title>校园多媒体协会 · 电教服务技术社团</title>
 <meta name="description" content="学校官方电教服务技术型社团 - 全校教室多媒体设备维修、每周电教巡检打分、社团宣传记录。零基础可学电脑运维、WPS 办公、编程基础、拍摄剪辑、海报设计、统筹管理六大技能。">
 
+<!-- 图片 CDN 预连接 - 加速图片加载 -->
+<link rel="preconnect" href="https://i.ibb.co" crossorigin>
+<link rel="dns-prefetch" href="https://i.ibb.co">
+<!-- logo 预加载 - 导航栏立即可见 -->
+<link rel="preload" as="image" href="https://i.ibb.co/nMshsSC1/logo.png">
+
 <!-- Google Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -458,7 +464,7 @@ section { position: relative; padding: var(--space-section) 0; }
   mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
   -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
 }
-.gallery-track { display: flex; gap: 24px; width: max-content; animation: gallery-flow 50s linear infinite; }
+.gallery-track { display: flex; gap: 24px; width: max-content; animation: gallery-flow 50s linear infinite; will-change: transform; }
 .gallery-track-wrap:hover .gallery-track { animation-play-state: paused; }
 @keyframes gallery-flow { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
@@ -466,6 +472,7 @@ section { position: relative; padding: var(--space-section) 0; }
   position: relative; width: 340px; height: 260px;
   border-radius: var(--radius-md); overflow: hidden;
   flex-shrink: 0; background: var(--gradient-mesh); box-shadow: var(--shadow-soft); cursor: pointer;
+  contain: layout paint;
 }
 .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s var(--ease-out); }
 .gallery-item:hover img { transform: scale(1.08); }
@@ -628,7 +635,7 @@ section { position: relative; padding: var(--space-section) 0; }
   <div class="nav-inner">
     <a href="#hero" class="nav-logo">
       <span class="nav-logo-mark">
-        <img src="logo.png" alt="多媒体协会标志" onerror="this.style.display='none'">
+        <img src="https://i.ibb.co/nMshsSC1/logo.png" alt="多媒体协会标志" width="38" height="38" decoding="async" fetchpriority="high" onerror="this.style.display='none'">
       </span>
       <span>多媒体协会</span>
     </a>
@@ -999,42 +1006,42 @@ section { position: relative; padding: var(--space-section) 0; }
     <div class="gallery-track" id="galleryTrack">
       <!-- 第一组 6 张 - 替换为本地图片 gallery-1.png ~ gallery-6.png -->
       <div class="gallery-item">
-        <img src="gallery-1.png" alt="风光图 1" loading="lazy" data-placeholder="风光图 1" onerror="this.parentElement.style.opacity='0.2'">
+        <img src="https://i.ibb.co/FbN5NmmB/gallery-1.jpg" alt="风光图 1" loading="lazy" decoding="async" data-placeholder="风光图 1" onerror="this.parentElement.style.opacity='0.2'">
         <div class="gallery-caption">
           <div class="gallery-caption-title">风光一</div>
           <div class="gallery-caption-tag">表彰大会</div>
         </div>
       </div>
       <div class="gallery-item">
-        <img src="gallery-2.png" alt="风光图 2" loading="lazy" data-placeholder="风光图 2" onerror="this.parentElement.style.opacity='0.2'">
+        <img src="https://i.ibb.co/wr3ZDYWW/gallery-2.jpg" alt="风光图 2" loading="lazy" decoding="async" data-placeholder="风光图 2" onerror="this.parentElement.style.opacity='0.2'">
         <div class="gallery-caption">
           <div class="gallery-caption-title">风光二</div>
           <div class="gallery-caption-tag">优秀干部</div>
         </div>
       </div>
       <div class="gallery-item">
-        <img src="gallery-3.png" alt="风光图 3" loading="lazy" data-placeholder="风光图 3" onerror="this.parentElement.style.opacity='0.2'">
+        <img src="https://i.ibb.co/VWBNK0jB/gallery-3.jpg" alt="风光图 3" loading="lazy" decoding="async" data-placeholder="风光图 3" onerror="this.parentElement.style.opacity='0.2'">
         <div class="gallery-caption">
           <div class="gallery-caption-title">风光三</div>
           <div class="gallery-caption-tag">团建留影</div>
         </div>
       </div>
       <div class="gallery-item">
-        <img src="gallery-4.png" alt="风光图 4" loading="lazy" data-placeholder="风光图 4" onerror="this.parentElement.style.opacity='0.2'">
+        <img src="https://i.ibb.co/Q7bmGH2g/gallery-4.jpg" alt="风光图 4" loading="lazy" decoding="async" data-placeholder="风光图 4" onerror="this.parentElement.style.opacity='0.2'">
         <div class="gallery-caption">
           <div class="gallery-caption-title">风光四</div>
           <div class="gallery-caption-tag">迎新仪式</div>
         </div>
       </div>
       <div class="gallery-item">
-        <img src="gallery-5.png" alt="风光图 5" loading="lazy" data-placeholder="风光图 5" onerror="this.parentElement.style.opacity='0.2'">
+        <img src="https://i.ibb.co/200KTSGY/gallery-5.jpg" alt="风光图 5" loading="lazy" decoding="async" data-placeholder="风光图 5" onerror="this.parentElement.style.opacity='0.2'">
         <div class="gallery-caption">
           <div class="gallery-caption-title">风光五</div>
           <div class="gallery-caption-tag">团建活动</div>
         </div>
       </div>
       <div class="gallery-item">
-        <img src="gallery-6.png" alt="风光图 6" loading="lazy" data-placeholder="风光图 6" onerror="this.parentElement.style.opacity='0.2'">
+        <img src="https://i.ibb.co/Wpn8fMzM/gallery-6.jpg" alt="风光图 6" loading="lazy" decoding="async" data-placeholder="风光图 6" onerror="this.parentElement.style.opacity='0.2'">
         <div class="gallery-caption">
           <div class="gallery-caption-title">风光六</div>
           <div class="gallery-caption-tag">技能培训</div>
@@ -1043,42 +1050,42 @@ section { position: relative; padding: var(--space-section) 0; }
 
       <!-- 复制第一组实现无缝循环 -->
       <div class="gallery-item">
-        <img src="gallery-1.png" alt="风光图 1" loading="lazy" data-placeholder="风光图 1" onerror="this.parentElement.style.opacity='0.2'">
+        <img src="https://i.ibb.co/FbN5NmmB/gallery-1.jpg" alt="风光图 1" loading="lazy" decoding="async" data-placeholder="风光图 1" onerror="this.parentElement.style.opacity='0.2'">
         <div class="gallery-caption">
           <div class="gallery-caption-title">风光一</div>
           <div class="gallery-caption-tag">表彰大会</div>
         </div>
       </div>
       <div class="gallery-item">
-        <img src="gallery-2.png" alt="风光图 2" loading="lazy" data-placeholder="风光图 2" onerror="this.parentElement.style.opacity='0.2'">
+        <img src="https://i.ibb.co/wr3ZDYWW/gallery-2.jpg" alt="风光图 2" loading="lazy" decoding="async" data-placeholder="风光图 2" onerror="this.parentElement.style.opacity='0.2'">
         <div class="gallery-caption">
           <div class="gallery-caption-title">风光二</div>
           <div class="gallery-caption-tag">优秀部长</div>
         </div>
       </div>
       <div class="gallery-item">
-        <img src="gallery-3.png" alt="风光图 3" loading="lazy" data-placeholder="风光图 3" onerror="this.parentElement.style.opacity='0.2'">
+        <img src="https://i.ibb.co/VWBNK0jB/gallery-3.jpg" alt="风光图 3" loading="lazy" decoding="async" data-placeholder="风光图 3" onerror="this.parentElement.style.opacity='0.2'">
         <div class="gallery-caption">
           <div class="gallery-caption-title">风光三</div>
           <div class="gallery-caption-tag">社团日常</div>
         </div>
       </div>
       <div class="gallery-item">
-        <img src="gallery-4.png" alt="风光图 4" loading="lazy" data-placeholder="风光图 4" onerror="this.parentElement.style.opacity='0.2'">
+        <img src="https://i.ibb.co/Q7bmGH2g/gallery-4.jpg" alt="风光图 4" loading="lazy" decoding="async" data-placeholder="风光图 4" onerror="this.parentElement.style.opacity='0.2'">
         <div class="gallery-caption">
           <div class="gallery-caption-title">风光四</div>
           <div class="gallery-caption-tag">社团日常</div>
         </div>
       </div>
       <div class="gallery-item">
-        <img src="gallery-5.png" alt="风光图 5" loading="lazy" data-placeholder="风光图 5" onerror="this.parentElement.style.opacity='0.2'">
+        <img src="https://i.ibb.co/200KTSGY/gallery-5.jpg" alt="风光图 5" loading="lazy" decoding="async" data-placeholder="风光图 5" onerror="this.parentElement.style.opacity='0.2'">
         <div class="gallery-caption">
           <div class="gallery-caption-title">风光五</div>
           <div class="gallery-caption-tag">社团日常</div>
         </div>
       </div>
       <div class="gallery-item">
-        <img src="gallery-6.png" alt="风光图 6" loading="lazy" data-placeholder="风光图 6" onerror="this.parentElement.style.opacity='0.2'">
+        <img src="https://i.ibb.co/Wpn8fMzM/gallery-6.jpg" alt="风光图 6" loading="lazy" decoding="async" data-placeholder="风光图 6" onerror="this.parentElement.style.opacity='0.2'">
         <div class="gallery-caption">
           <div class="gallery-caption-title">风光六</div>
           <div class="gallery-caption-tag">社团日常</div>
@@ -1165,7 +1172,7 @@ section { position: relative; padding: var(--space-section) 0; }
 
         <!-- QR 占位区 - 可替换为实际二维码 -->
         <div class="qr-placeholder" id="qr-placeholder" data-placeholder="招新群二维码">
-          <img src="qr.png" alt="招新群二维码" onerror="this.style.display='none'">
+          <img src="https://i.ibb.co/PzVzSnyt/qr.jpg" alt="招新群二维码" width="180" height="180" decoding="async" loading="lazy" onerror="this.style.display='none'">
         </div>
 
         <p class="join-qr-note">扫描上方二维码 · 加入招新答疑群</p>
@@ -1203,7 +1210,7 @@ section { position: relative; padding: var(--space-section) 0; }
       <div class="footer-brand">
         <a href="#hero" class="nav-logo">
           <span class="nav-logo-mark">
-        <img src="logo.png" alt="多媒体协会标志" onerror="this.style.display='none'">
+        <img src="https://i.ibb.co/nMshsSC1/logo.png" alt="多媒体协会标志" width="38" height="38" decoding="async" fetchpriority="high" onerror="this.style.display='none'">
       </span>
           <span>多媒体协会</span>
         </a>
