@@ -1502,7 +1502,19 @@ section { position: relative; padding: var(--space-section) 0; }
     }
   };
 
+  // 禁用浏览器滚动位置恢复，确保每次打开都从顶部开始
+  if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+  }
+  const resetScroll = () => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+  };
+  resetScroll();
+  window.addEventListener('load', resetScroll);
+  requestAnimationFrame(resetScroll);
+
   document.addEventListener('DOMContentLoaded', () => {
+    resetScroll();
     NavScroll.init();
     MobileNav.init();
     ScrollReveal.init();
