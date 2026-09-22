@@ -7,10 +7,10 @@
 <meta name="description" content="学校官方电教服务技术型社团 - 全校教室多媒体设备维修、每周电教巡检打分、社团宣传记录。零基础可学电脑运维、WPS 办公、编程基础、拍摄剪辑、海报设计、统筹管理六大技能。">
 
 <!-- 图片 CDN 预连接 - 加速图片加载 -->
-<link rel="preconnect" href="https://i.ibb.co" crossorigin>
-<link rel="dns-prefetch" href="https://i.ibb.co">
+<link rel="preconnect" href="https://pic1.imgdb.cn" crossorigin>
+<link rel="dns-prefetch" href="https://pic1.imgdb.cn">
 <!-- logo 预加载 - 导航栏立即可见 -->
-<link rel="preload" as="image" href="https://i.ibb.co/nMshsSC1/logo.png">
+<link rel="preload" as="image" href="https://pic1.imgdb.cn/i/034TIf9zOhSGvYJ8WR0dR6.jpg">
 
 <!-- Google Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -175,7 +175,9 @@ section { position: relative; padding: var(--space-section) 0; }
   width: 100%; height: 100%;
   object-fit: cover;
   border-radius: 50%;
+  opacity: 0; transition: opacity 0.4s ease;
 }
+.nav-logo-mark img.loaded { opacity: 1; }
 .nav-links { display: flex; align-items: center; gap: 4px; }
 .nav-link {
   position: relative;
@@ -461,20 +463,32 @@ section { position: relative; padding: var(--space-section) 0; }
 .gallery { background: var(--color-gray-50); overflow: hidden; }
 .gallery-track-wrap {
   margin-top: 64px; overflow: hidden; position: relative;
-  mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
+  cursor: grab;
 }
-.gallery-track { display: flex; gap: 24px; width: max-content; animation: gallery-flow 50s linear infinite; will-change: transform; }
+.gallery-track-wrap.dragging { cursor: grabbing; }
+.gallery-track { display: flex; gap: 24px; width: max-content; will-change: transform; transition: transform 0.6s var(--ease-out); }
+.gallery-track.no-transition { transition: none; }
 .gallery-track-wrap:hover .gallery-track { animation-play-state: paused; }
-@keyframes gallery-flow { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+@media (max-width: 768px) { .gallery-item { width: 280px; height: 210px; } }
 
 .gallery-item {
   position: relative; width: 340px; height: 260px;
   border-radius: var(--radius-md); overflow: hidden;
-  flex-shrink: 0; background: var(--gradient-mesh); box-shadow: var(--shadow-soft); cursor: pointer;
+  flex-shrink: 0; background: linear-gradient(110deg, #e8edf5 30%, #f0f4fa 50%, #e8edf5 70%);
+  background-size: 200% 100%; animation: skeleton-shimmer 1.5s ease-in-out infinite;
+  box-shadow: var(--shadow-soft); cursor: pointer;
   contain: layout paint;
 }
-.gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s var(--ease-out); }
+@keyframes skeleton-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+.gallery-item.loaded { animation: none; background: var(--gradient-mesh); }
+.gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s var(--ease-out), opacity 0.6s ease; opacity: 0; }
+.gallery-item.loaded img { opacity: 1; }
 .gallery-item:hover img { transform: scale(1.08); }
 .gallery-item::after {
   content: ''; position: absolute; inset: 0;
@@ -553,7 +567,9 @@ section { position: relative; padding: var(--space-section) 0; }
   width: 100%; height: 100%;
   object-fit: contain;
   border-radius: 8px;
+  opacity: 0; transition: opacity 0.5s ease;
 }
+.qr-placeholder img.loaded { opacity: 1; }
 
 .join-qr-note { font-size: 0.82rem; color: var(--color-text-soft); margin-bottom: 20px; }
 .join-steps { width: 100%; text-align: left; margin-top: 8px; }
@@ -635,7 +651,7 @@ section { position: relative; padding: var(--space-section) 0; }
   <div class="nav-inner">
     <a href="#hero" class="nav-logo">
       <span class="nav-logo-mark">
-        <img src="https://i.ibb.co/nMshsSC1/logo.png" alt="多媒体协会标志" width="38" height="38" decoding="async" fetchpriority="high" onerror="this.style.display='none'">
+        <img src="https://pic1.imgdb.cn/i/034TIf9zOhSGvYJ8WR0dR6.jpg" alt="多媒体协会标志" width="38" height="38" decoding="async" fetchpriority="high" onerror="this.style.display='none'">
       </span>
       <span>多媒体协会</span>
     </a>
@@ -1002,46 +1018,46 @@ section { position: relative; padding: var(--space-section) 0; }
   </div>
 
   <!-- 画廊轮播 -->
-  <div class="gallery-track-wrap">
+  <div class="gallery-track-wrap" id="galleryWrap">
     <div class="gallery-track" id="galleryTrack">
       <!-- 第一组 6 张 - 替换为本地图片 gallery-1.png ~ gallery-6.png -->
       <div class="gallery-item">
-        <img src="https://i.ibb.co/FbN5NmmB/gallery-1.jpg" alt="风光图 1" loading="lazy" decoding="async" data-placeholder="风光图 1" onerror="this.parentElement.style.opacity='0.2'">
+        <img src="https://pic1.imgdb.cn/i/034TIQWjrQd0FViCTqelnZ.jpg" alt="风光图 1" loading="lazy" decoding="async" data-placeholder="风光图 1" onerror="this.parentElement.style.opacity='0.2'">
         <div class="gallery-caption">
           <div class="gallery-caption-title">风光一</div>
           <div class="gallery-caption-tag">表彰大会</div>
         </div>
       </div>
       <div class="gallery-item">
-        <img src="https://i.ibb.co/wr3ZDYWW/gallery-2.jpg" alt="风光图 2" loading="lazy" decoding="async" data-placeholder="风光图 2" onerror="this.parentElement.style.opacity='0.2'">
+        <img src="https://pic1.imgdb.cn/i/034TIUykmnns7E8x7EF5Wg.jpg" alt="风光图 2" loading="lazy" decoding="async" data-placeholder="风光图 2" onerror="this.parentElement.style.opacity='0.2'">
         <div class="gallery-caption">
           <div class="gallery-caption-title">风光二</div>
           <div class="gallery-caption-tag">优秀干部</div>
         </div>
       </div>
       <div class="gallery-item">
-        <img src="https://i.ibb.co/VWBNK0jB/gallery-3.jpg" alt="风光图 3" loading="lazy" decoding="async" data-placeholder="风光图 3" onerror="this.parentElement.style.opacity='0.2'">
+        <img src="https://pic1.imgdb.cn/i/034TIW6vudYqVcIJKPSUvA.jpg" alt="风光图 3" loading="lazy" decoding="async" data-placeholder="风光图 3" onerror="this.parentElement.style.opacity='0.2'">
         <div class="gallery-caption">
           <div class="gallery-caption-title">风光三</div>
           <div class="gallery-caption-tag">团建留影</div>
         </div>
       </div>
       <div class="gallery-item">
-        <img src="https://i.ibb.co/Q7bmGH2g/gallery-4.jpg" alt="风光图 4" loading="lazy" decoding="async" data-placeholder="风光图 4" onerror="this.parentElement.style.opacity='0.2'">
+        <img src="https://pic1.imgdb.cn/i/034TIXxRUGJKB7u3Zy6UDJ.png" alt="风光图 4" loading="lazy" decoding="async" data-placeholder="风光图 4" onerror="this.parentElement.style.opacity='0.2'">
         <div class="gallery-caption">
           <div class="gallery-caption-title">风光四</div>
           <div class="gallery-caption-tag">迎新仪式</div>
         </div>
       </div>
       <div class="gallery-item">
-        <img src="https://i.ibb.co/200KTSGY/gallery-5.jpg" alt="风光图 5" loading="lazy" decoding="async" data-placeholder="风光图 5" onerror="this.parentElement.style.opacity='0.2'">
+        <img src="https://pic1.imgdb.cn/i/034TIYYxwlPYOBdhxLcb2j.jpg" alt="风光图 5" loading="lazy" decoding="async" data-placeholder="风光图 5" onerror="this.parentElement.style.opacity='0.2'">
         <div class="gallery-caption">
           <div class="gallery-caption-title">风光五</div>
           <div class="gallery-caption-tag">团建活动</div>
         </div>
       </div>
       <div class="gallery-item">
-        <img src="https://i.ibb.co/Wpn8fMzM/gallery-6.jpg" alt="风光图 6" loading="lazy" decoding="async" data-placeholder="风光图 6" onerror="this.parentElement.style.opacity='0.2'">
+        <img src="https://pic1.imgdb.cn/i/034TIZDJHazldKWvk3arMA.jpg" alt="风光图 6" loading="lazy" decoding="async" data-placeholder="风光图 6" onerror="this.parentElement.style.opacity='0.2'">
         <div class="gallery-caption">
           <div class="gallery-caption-title">风光六</div>
           <div class="gallery-caption-tag">技能培训</div>
@@ -1050,42 +1066,42 @@ section { position: relative; padding: var(--space-section) 0; }
 
       <!-- 复制第一组实现无缝循环 -->
       <div class="gallery-item">
-        <img src="https://i.ibb.co/FbN5NmmB/gallery-1.jpg" alt="风光图 1" loading="lazy" decoding="async" data-placeholder="风光图 1" onerror="this.parentElement.style.opacity='0.2'">
+        <img src="https://pic1.imgdb.cn/i/034TIQWjrQd0FViCTqelnZ.jpg" alt="风光图 1" loading="lazy" decoding="async" data-placeholder="风光图 1" onerror="this.parentElement.style.opacity='0.2'">
         <div class="gallery-caption">
           <div class="gallery-caption-title">风光一</div>
           <div class="gallery-caption-tag">表彰大会</div>
         </div>
       </div>
       <div class="gallery-item">
-        <img src="https://i.ibb.co/wr3ZDYWW/gallery-2.jpg" alt="风光图 2" loading="lazy" decoding="async" data-placeholder="风光图 2" onerror="this.parentElement.style.opacity='0.2'">
+        <img src="https://pic1.imgdb.cn/i/034TIUykmnns7E8x7EF5Wg.jpg" alt="风光图 2" loading="lazy" decoding="async" data-placeholder="风光图 2" onerror="this.parentElement.style.opacity='0.2'">
         <div class="gallery-caption">
           <div class="gallery-caption-title">风光二</div>
           <div class="gallery-caption-tag">优秀部长</div>
         </div>
       </div>
       <div class="gallery-item">
-        <img src="https://i.ibb.co/VWBNK0jB/gallery-3.jpg" alt="风光图 3" loading="lazy" decoding="async" data-placeholder="风光图 3" onerror="this.parentElement.style.opacity='0.2'">
+        <img src="https://pic1.imgdb.cn/i/034TIW6vudYqVcIJKPSUvA.jpg" alt="风光图 3" loading="lazy" decoding="async" data-placeholder="风光图 3" onerror="this.parentElement.style.opacity='0.2'">
         <div class="gallery-caption">
           <div class="gallery-caption-title">风光三</div>
           <div class="gallery-caption-tag">社团日常</div>
         </div>
       </div>
       <div class="gallery-item">
-        <img src="https://i.ibb.co/Q7bmGH2g/gallery-4.jpg" alt="风光图 4" loading="lazy" decoding="async" data-placeholder="风光图 4" onerror="this.parentElement.style.opacity='0.2'">
+        <img src="https://pic1.imgdb.cn/i/034TIXxRUGJKB7u3Zy6UDJ.png" alt="风光图 4" loading="lazy" decoding="async" data-placeholder="风光图 4" onerror="this.parentElement.style.opacity='0.2'">
         <div class="gallery-caption">
           <div class="gallery-caption-title">风光四</div>
           <div class="gallery-caption-tag">社团日常</div>
         </div>
       </div>
       <div class="gallery-item">
-        <img src="https://i.ibb.co/200KTSGY/gallery-5.jpg" alt="风光图 5" loading="lazy" decoding="async" data-placeholder="风光图 5" onerror="this.parentElement.style.opacity='0.2'">
+        <img src="https://pic1.imgdb.cn/i/034TIYYxwlPYOBdhxLcb2j.jpg" alt="风光图 5" loading="lazy" decoding="async" data-placeholder="风光图 5" onerror="this.parentElement.style.opacity='0.2'">
         <div class="gallery-caption">
           <div class="gallery-caption-title">风光五</div>
           <div class="gallery-caption-tag">社团日常</div>
         </div>
       </div>
       <div class="gallery-item">
-        <img src="https://i.ibb.co/Wpn8fMzM/gallery-6.jpg" alt="风光图 6" loading="lazy" decoding="async" data-placeholder="风光图 6" onerror="this.parentElement.style.opacity='0.2'">
+        <img src="https://pic1.imgdb.cn/i/034TIZDJHazldKWvk3arMA.jpg" alt="风光图 6" loading="lazy" decoding="async" data-placeholder="风光图 6" onerror="this.parentElement.style.opacity='0.2'">
         <div class="gallery-caption">
           <div class="gallery-caption-title">风光六</div>
           <div class="gallery-caption-tag">社团日常</div>
@@ -1172,7 +1188,7 @@ section { position: relative; padding: var(--space-section) 0; }
 
         <!-- QR 占位区 - 可替换为实际二维码 -->
         <div class="qr-placeholder" id="qr-placeholder" data-placeholder="招新群二维码">
-          <img src="https://i.ibb.co/PzVzSnyt/qr.jpg" alt="招新群二维码" width="180" height="180" decoding="async" loading="lazy" onerror="this.style.display='none'">
+          <img src="https://pic1.imgdb.cn/i/034TIc6wsSXYU3EdJ2TeI8.jpg" alt="招新群二维码" width="180" height="180" decoding="async" loading="lazy" onerror="this.style.display='none'">
         </div>
 
         <p class="join-qr-note">扫描上方二维码 · 加入招新答疑群</p>
@@ -1210,7 +1226,7 @@ section { position: relative; padding: var(--space-section) 0; }
       <div class="footer-brand">
         <a href="#hero" class="nav-logo">
           <span class="nav-logo-mark">
-        <img src="https://i.ibb.co/nMshsSC1/logo.png" alt="多媒体协会标志" width="38" height="38" decoding="async" fetchpriority="high" onerror="this.style.display='none'">
+        <img src="https://pic1.imgdb.cn/i/034TIf9zOhSGvYJ8WR0dR6.jpg" alt="多媒体协会标志" width="38" height="38" decoding="async" fetchpriority="high" onerror="this.style.display='none'">
       </span>
           <span>多媒体协会</span>
         </a>
@@ -1372,19 +1388,117 @@ section { position: relative; padding: var(--space-section) 0; }
     }
   };
 
-  /* 模块 5: 画廊触摸支持 */
+  /* 模块 5: 画廊轮播 - 自动滚动 + 拖拽跟随 + 松手恢复 */
   const GalleryCarousel = {
+    wrap: document.getElementById('galleryWrap'),
     track: document.getElementById('galleryTrack'),
-    wrap: document.querySelector('.gallery-track-wrap'),
+    offset: 0,          // 当前位移
+    speed: 0.5,         // 自动滚动速度 px/帧
+    rafId: null,        // requestAnimationFrame ID
+    isDragging: false,
+    isPaused: false,    // 松手后短暂暂停
+    startX: 0,
+    startOffset: 0,
+    resumeTimer: null,
 
     init() {
-      if (!this.track) return;
-      this.wrap.addEventListener('touchstart', () => {
-        this.track.style.animationPlayState = 'paused';
-      }, { passive: true });
-      this.wrap.addEventListener('touchend', () => {
-        this.track.style.animationPlayState = 'running';
-      }, { passive: true });
+      if (!this.track || !this.wrap) return;
+
+      // 鼠标拖拽
+      this.wrap.addEventListener('mousedown', (e) => this.onDragStart(e));
+      document.addEventListener('mousemove', (e) => this.onDragMove(e));
+      document.addEventListener('mouseup', () => this.onDragEnd());
+
+      // 触摸滑动
+      this.wrap.addEventListener('touchstart', (e) => this.onDragStart(e), { passive: true });
+      this.wrap.addEventListener('touchmove', (e) => this.onDragMove(e), { passive: true });
+      this.wrap.addEventListener('touchend', () => this.onDragEnd());
+
+      // 鼠标悬停时减速（不停止）
+      this.wrap.addEventListener('mouseenter', () => { this.speed = 0.15; });
+      this.wrap.addEventListener('mouseleave', () => { this.speed = 0.5; });
+
+      // 防止拖拽时选中图片
+      this.wrap.addEventListener('dragstart', (e) => e.preventDefault());
+
+      this.startAuto();
+    },
+
+    // 自动滚动循环
+    autoLoop() {
+      if (!this.isDragging && !this.isPaused) {
+        this.offset -= this.speed;
+        this.seamlessLoop();
+        this.updateTransform();
+      }
+      this.rafId = requestAnimationFrame(() => this.autoLoop());
+    },
+
+    // 无缝循环：滚到一半就归零
+    seamlessLoop() {
+      const halfWidth = this.track.scrollWidth / 2;
+      if (halfWidth === 0) return;
+      if (this.offset <= -halfWidth) this.offset += halfWidth;
+      if (this.offset > 0) this.offset -= halfWidth;
+    },
+
+    onDragStart(e) {
+      this.isDragging = true;
+      this.startX = e.touches ? e.touches[0].clientX : e.clientX;
+      this.startOffset = this.offset;
+      this.wrap.classList.add('dragging');
+      this.track.classList.add('no-transition');
+      if (this.resumeTimer) { clearTimeout(this.resumeTimer); this.resumeTimer = null; }
+    },
+
+    onDragMove(e) {
+      if (!this.isDragging) return;
+      const currentX = e.touches ? e.touches[0].clientX : e.clientX;
+      const delta = currentX - this.startX;
+      this.offset = this.startOffset + delta;
+      this.seamlessLoop();
+      this.updateTransform();
+    },
+
+    onDragEnd() {
+      if (!this.isDragging) return;
+      this.isDragging = false;
+      this.wrap.classList.remove('dragging');
+      this.track.classList.remove('no-transition');
+      // 松手后暂停 1 秒，再恢复自动滚动
+      this.isPaused = true;
+      if (this.resumeTimer) clearTimeout(this.resumeTimer);
+      this.resumeTimer = setTimeout(() => { this.isPaused = false; }, 1000);
+    },
+
+    updateTransform() {
+      if (this.track) this.track.style.transform = `translateX(${this.offset}px)`;
+    },
+
+    startAuto() {
+      if (this.rafId) cancelAnimationFrame(this.rafId);
+      this.autoLoop();
+    }
+  };
+
+  /* 模块 6: 图片加载淡入 - 加载完成后平滑显示 */
+  const ImageFadeIn = {
+    init() {
+      document.querySelectorAll('img').forEach(img => {
+        if (img.complete && img.naturalWidth > 0) {
+          img.classList.add('loaded');
+          if (img.closest('.gallery-item')) img.closest('.gallery-item').classList.add('loaded');
+        } else {
+          img.addEventListener('load', () => {
+            img.classList.add('loaded');
+            if (img.closest('.gallery-item')) img.closest('.gallery-item').classList.add('loaded');
+          });
+          img.addEventListener('error', () => {
+            img.classList.add('loaded');
+            if (img.closest('.gallery-item')) img.closest('.gallery-item').classList.add('loaded');
+          });
+        }
+      });
     }
   };
 
@@ -1394,6 +1508,7 @@ section { position: relative; padding: var(--space-section) 0; }
     ScrollReveal.init();
     TimelineReveal.init();
     GalleryCarousel.init();
+    ImageFadeIn.init();
   });
 })();
 </script>
