@@ -157,12 +157,18 @@ section { position: relative; padding: var(--space-section) 0; }
 .nav-inner { max-width: var(--container-max); margin: 0 auto; padding: 0 var(--container-pad); display: flex; align-items: center; justify-content: space-between; }
 .nav-logo { display: flex; align-items: center; gap: 10px; font-family: var(--font-display); font-weight: 800; font-size: 1.05rem; letter-spacing: -0.02em; color: var(--color-text); }
 .nav-logo-mark {
-  width: 34px; height: 34px;
-  border-radius: 9px;
-  background: linear-gradient(135deg, var(--color-blue-deep), var(--color-accent));
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: white;
   display: grid; place-items: center;
-  color: white; font-family: var(--font-display); font-weight: 800; font-size: 0.85rem;
-  box-shadow: 0 4px 12px -2px rgba(37, 99, 235, 0.35);
+  box-shadow: 0 2px 8px -2px rgba(15, 23, 42, 0.12);
+  flex-shrink: 0;
+}
+.nav-logo-mark img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
 }
 .nav-links { display: flex; align-items: center; gap: 4px; }
 .nav-link {
@@ -526,21 +532,21 @@ section { position: relative; padding: var(--space-section) 0; }
 .join-qr-subtitle { font-size: 0.88rem; color: var(--color-text-soft); margin-bottom: 28px; }
 
 .qr-placeholder {
-  width: 200px; height: 200px; background: white; border-radius: var(--radius-md);
-  display: grid; place-items: center; position: relative;
-  box-shadow: var(--shadow-sm); margin-bottom: 24px; overflow: hidden;
+  width: 200px; height: 200px;
+  background: white;
+  border-radius: var(--radius-md);
+  display: grid; place-items: center;
+  position: relative;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 24px;
+  overflow: hidden;
+  padding: 10px;
 }
-.qr-pattern { width: 160px; height: 160px; display: grid; grid-template-columns: repeat(8, 1fr); grid-template-rows: repeat(8, 1fr); gap: 2px; }
-.qr-pattern div { background: var(--color-text); border-radius: 2px; }
-.qr-pattern div:nth-child(3n) { background: transparent; }
-.qr-pattern div:nth-child(5n+2) { background: transparent; }
-.qr-pattern div:nth-child(7n+3) { background: transparent; }
-.qr-pattern div:nth-child(4n+1) { background: var(--color-text); }
-.qr-corner { position: absolute; width: 36px; height: 36px; border: 4px solid var(--color-text); border-radius: 6px; }
-.qr-corner-tl { top: 12px; left: 12px; border-right: none; border-bottom: none; }
-.qr-corner-tr { top: 12px; right: 12px; border-left: none; border-bottom: none; }
-.qr-corner-bl { bottom: 12px; left: 12px; border-right: none; border-top: none; }
-.qr-corner-br { bottom: 12px; right: 12px; border-left: none; border-top: none; }
+.qr-placeholder img {
+  width: 100%; height: 100%;
+  object-fit: contain;
+  border-radius: 8px;
+}
 
 .join-qr-note { font-size: 0.82rem; color: var(--color-text-soft); margin-bottom: 20px; }
 .join-steps { width: 100%; text-align: left; margin-top: 8px; }
@@ -621,7 +627,9 @@ section { position: relative; padding: var(--space-section) 0; }
 <nav class="nav" id="nav">
   <div class="nav-inner">
     <a href="#hero" class="nav-logo">
-      <span class="nav-logo-mark">M</span>
+      <span class="nav-logo-mark">
+        <img src="logo.png" alt="多媒体协会标志" onerror="this.style.display='none'">
+      </span>
       <span>多媒体协会</span>
     </a>
     <ul class="nav-links" id="navLinks">
@@ -655,7 +663,7 @@ section { position: relative; padding: var(--space-section) 0; }
       <!-- 招新状态徽章 -->
       <div class="hero-badge" data-text="hero-badge">
         <span class="hero-badge-dot"></span>
-        <span>学校官方电教服务技术社团 · 招新中</span>
+        <span>学校官方多媒体技术社团 · 招新中</span>
       </div>
 
       <!-- 主标题英文 eyebrow -->
@@ -663,12 +671,12 @@ section { position: relative; padding: var(--space-section) 0; }
 
       <!-- 主标题 -->
       <h1 class="hero-title" data-text="hero-title">
-        服务校园<br><span class="accent">学技成长</span>
+        维护多媒体<br><span class="accent">创意新时代</span>
       </h1>
 
       <!-- 副标题 -->
       <p class="hero-subtitle" data-text="hero-subtitle">
-        学校官方电教服务技术型社团 · 负责全校教室多媒体设备维修、每周电教巡检打分、社团宣传记录。
+        学校官方多媒体技术型社团 · 负责全校教室多媒体设备维修、每周电教巡检打分。
         零基础加入，免费学习电脑运维、WPS 办公、编程基础、拍摄剪辑、海报设计、统筹管理六大技能。
       </p>
 
@@ -731,7 +739,7 @@ section { position: relative; padding: var(--space-section) 0; }
       <div class="section-eyebrow">DEPARTMENTS</div>
       <h2 class="section-title">三大部门 · 全员可学</h2>
       <p class="section-subtitle">
-        检修部、运营部、创新部 —— 分工科学、人人有事做，三大部门技能互通、全员可学。
+        检修部、运营部、创新部 —— 分工科学，三大部门技能互通、全员可学。
       </p>
     </div>
 
@@ -778,7 +786,7 @@ section { position: relative; padding: var(--space-section) 0; }
         </div>
       </div>
 
-      <!-- 部门 2: 运营部 -->
+      <!-- 部门 2: 巡检部 -->
       <div class="dept-card">
         <div class="dept-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -864,7 +872,7 @@ section { position: relative; padding: var(--space-section) 0; }
 
         <div class="dept-highlight">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-          <span>项目制 + 日常实训制 · 淡季全员练技能 · 不打杂摸鱼 · 轻松积累个人作品</span>
+          <span>项目制 + 日常实训制 · 淡季全员练技能 ·  轻松积累个人作品</span>
         </div>
       </div>
     </div>
@@ -880,7 +888,7 @@ section { position: relative; padding: var(--space-section) 0; }
       <div class="section-eyebrow">ACTIVITIES</div>
       <h2 class="section-title">社团活动 · 时光轴</h2>
       <p class="section-subtitle">
-        从校级固定工作到内部技能培训，再到团建交流 —— 服务校园与全员学技同步进行。
+        从校级固定工作到内部技能培训，再到团建交流 —— 服务全员学技同步进行。
       </p>
     </div>
 
@@ -888,7 +896,7 @@ section { position: relative; padding: var(--space-section) 0; }
       <!-- 活动 1 -->
       <div class="timeline-item">
         <div class="timeline-card">
-          <div class="timeline-date">每周 · 固定工作</div>
+          <div class="timeline-date">每天 · 固定工作</div>
           <h3 class="timeline-title">全校多媒体设备应急抢修</h3>
           <p class="timeline-desc">检修部牵头，全员轮岗参与。接到报修后第一时间响应，处理教室电脑、投影、音响故障，保障教学正常运转。</p>
           <div class="timeline-tags">
@@ -981,7 +989,7 @@ section { position: relative; padding: var(--space-section) 0; }
       <div class="section-eyebrow">GALLERY</div>
       <h2 class="section-title">社团风光 · 工作日常</h2>
       <p class="section-subtitle">
-        设备检修现场、校园巡检日常、技能教学花絮、社团实训瞬间、团队合照、设计剪辑作品展示。
+        设备检修现场、校园巡检日常、技能教学花絮、社团实训瞬间、团队合照。
       </p>
     </div>
   </div>
@@ -989,119 +997,91 @@ section { position: relative; padding: var(--space-section) 0; }
   <!-- 画廊轮播 -->
   <div class="gallery-track-wrap">
     <div class="gallery-track" id="galleryTrack">
-      <!-- 第一组 8 张 -->
+      <!-- 第一组 6 张 - 替换为本地图片 gallery-1.png ~ gallery-6.png -->
       <div class="gallery-item">
-        <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=classroom%20multimedia%20equipment%20maintenance%20computer%20projector%20repair%20clean%20blue%20tone%20minimalist&image_size=landscape_4_3" alt="设备检修现场" loading="lazy" data-placeholder="检修现场 1">
+        <img src="gallery-1.png" alt="风光图 1" loading="lazy" data-placeholder="风光图 1" onerror="this.parentElement.style.opacity='0.2'">
         <div class="gallery-caption">
-          <div class="gallery-caption-title">设备抢修现场</div>
-          <div class="gallery-caption-tag">检修部 · 教室维护</div>
+          <div class="gallery-caption-title">风光一</div>
+          <div class="gallery-caption-tag">表彰大会</div>
         </div>
       </div>
       <div class="gallery-item">
-        <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=school%20classroom%20inspection%20checklist%20clipboard%20clean%20blue%20tone%20minimalist%20professional&image_size=landscape_4_3" alt="校园巡检日常" loading="lazy" data-placeholder="巡检日常 1">
+        <img src="gallery-2.png" alt="风光图 2" loading="lazy" data-placeholder="风光图 2" onerror="this.parentElement.style.opacity='0.2'">
         <div class="gallery-caption">
-          <div class="gallery-caption-title">每周巡检打分</div>
-          <div class="gallery-caption-tag">运营部 · 全校巡检</div>
+          <div class="gallery-caption-title">风光二</div>
+          <div class="gallery-caption-tag">优秀干部</div>
         </div>
       </div>
       <div class="gallery-item">
-        <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=computer%20repair%20training%20workshop%20students%20learning%20hardware%20blue%20tone%20clean%20minimalist&image_size=landscape_4_3" alt="技能教学花絮" loading="lazy" data-placeholder="教学花絮 1">
+        <img src="gallery-3.png" alt="风光图 3" loading="lazy" data-placeholder="风光图 3" onerror="this.parentElement.style.opacity='0.2'">
         <div class="gallery-caption">
-          <div class="gallery-caption-title">维修实训课堂</div>
-          <div class="gallery-caption-tag">培训 · 电脑维修</div>
+          <div class="gallery-caption-title">风光三</div>
+          <div class="gallery-caption-tag">团建留影</div>
         </div>
       </div>
       <div class="gallery-item">
-        <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=WPS%20office%20software%20training%20laptop%20screen%20excel%20spreadsheet%20clean%20blue%20tone%20minimalist&image_size=landscape_4_3" alt="办公培训" loading="lazy" data-placeholder="办公培训 1">
+        <img src="gallery-4.png" alt="风光图 4" loading="lazy" data-placeholder="风光图 4" onerror="this.parentElement.style.opacity='0.2'">
         <div class="gallery-caption">
-          <div class="gallery-caption-title">WPS 办公培训</div>
-          <div class="gallery-caption-tag">培训 · 运营部</div>
+          <div class="gallery-caption-title">风光四</div>
+          <div class="gallery-caption-tag">迎新仪式</div>
         </div>
       </div>
       <div class="gallery-item">
-        <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=video%20editing%20camera%20shooting%20behind%20scenes%20students%20blue%20tone%20minimalist%20clean&image_size=landscape_4_3" alt="拍摄实训" loading="lazy" data-placeholder="拍摄实训 1">
+        <img src="gallery-5.png" alt="风光图 5" loading="lazy" data-placeholder="风光图 5" onerror="this.parentElement.style.opacity='0.2'">
         <div class="gallery-caption">
-          <div class="gallery-caption-title">拍摄剪辑实训</div>
-          <div class="gallery-caption-tag">实训 · 创新部</div>
+          <div class="gallery-caption-title">风光五</div>
+          <div class="gallery-caption-tag">团建活动</div>
         </div>
       </div>
       <div class="gallery-item">
-        <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=minimalist%20poster%20design%20blue%20white%20geometric%20typography%20clean%20layout%20graphic&image_size=landscape_4_3" alt="海报设计作品" loading="lazy" data-placeholder="设计作品 1">
+        <img src="gallery-6.png" alt="风光图 6" loading="lazy" data-placeholder="风光图 6" onerror="this.parentElement.style.opacity='0.2'">
         <div class="gallery-caption">
-          <div class="gallery-caption-title">海报设计作品</div>
-          <div class="gallery-caption-tag">作品 · 创新部</div>
-        </div>
-      </div>
-      <div class="gallery-item">
-        <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=student%20team%20group%20photo%20young%20people%20smiling%20outdoor%20blue%20tone%20minimalist%20clean&image_size=landscape_4_3" alt="团队合照" loading="lazy" data-placeholder="团队合照 1">
-        <div class="gallery-caption">
-          <div class="gallery-caption-title">社团年度合照</div>
-          <div class="gallery-caption-tag">合照 · 全体社员</div>
-        </div>
-      </div>
-      <div class="gallery-item">
-        <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=programming%20code%20screen%20laptop%20learning%20students%20blue%20tone%20minimalist%20clean&image_size=landscape_4_3" alt="编程课堂" loading="lazy" data-placeholder="编程课堂 1">
-        <div class="gallery-caption">
-          <div class="gallery-caption-title">编程基础课堂</div>
-          <div class="gallery-caption-tag">培训 · 编程入门</div>
+          <div class="gallery-caption-title">风光六</div>
+          <div class="gallery-caption-tag">技能培训</div>
         </div>
       </div>
 
       <!-- 复制第一组实现无缝循环 -->
       <div class="gallery-item">
-        <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=classroom%20multimedia%20equipment%20maintenance%20computer%20projector%20repair%20clean%20blue%20tone%20minimalist&image_size=landscape_4_3" alt="设备检修现场" loading="lazy" data-placeholder="检修现场 1">
+        <img src="gallery-1.png" alt="风光图 1" loading="lazy" data-placeholder="风光图 1" onerror="this.parentElement.style.opacity='0.2'">
         <div class="gallery-caption">
-          <div class="gallery-caption-title">设备抢修现场</div>
-          <div class="gallery-caption-tag">检修部 · 教室维护</div>
+          <div class="gallery-caption-title">风光一</div>
+          <div class="gallery-caption-tag">表彰大会</div>
         </div>
       </div>
       <div class="gallery-item">
-        <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=school%20classroom%20inspection%20checklist%20clipboard%20clean%20blue%20tone%20minimalist%20professional&image_size=landscape_4_3" alt="校园巡检日常" loading="lazy" data-placeholder="巡检日常 1">
+        <img src="gallery-2.png" alt="风光图 2" loading="lazy" data-placeholder="风光图 2" onerror="this.parentElement.style.opacity='0.2'">
         <div class="gallery-caption">
-          <div class="gallery-caption-title">每周巡检打分</div>
-          <div class="gallery-caption-tag">运营部 · 全校巡检</div>
+          <div class="gallery-caption-title">风光二</div>
+          <div class="gallery-caption-tag">优秀部长</div>
         </div>
       </div>
       <div class="gallery-item">
-        <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=computer%20repair%20training%20workshop%20students%20learning%20hardware%20blue%20tone%20clean%20minimalist&image_size=landscape_4_3" alt="技能教学花絮" loading="lazy" data-placeholder="教学花絮 1">
+        <img src="gallery-3.png" alt="风光图 3" loading="lazy" data-placeholder="风光图 3" onerror="this.parentElement.style.opacity='0.2'">
         <div class="gallery-caption">
-          <div class="gallery-caption-title">维修实训课堂</div>
-          <div class="gallery-caption-tag">培训 · 电脑维修</div>
+          <div class="gallery-caption-title">风光三</div>
+          <div class="gallery-caption-tag">社团日常</div>
         </div>
       </div>
       <div class="gallery-item">
-        <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=WPS%20office%20software%20training%20laptop%20screen%20excel%20spreadsheet%20clean%20blue%20tone%20minimalist&image_size=landscape_4_3" alt="办公培训" loading="lazy" data-placeholder="办公培训 1">
+        <img src="gallery-4.png" alt="风光图 4" loading="lazy" data-placeholder="风光图 4" onerror="this.parentElement.style.opacity='0.2'">
         <div class="gallery-caption">
-          <div class="gallery-caption-title">WPS 办公培训</div>
-          <div class="gallery-caption-tag">培训 · 运营部</div>
+          <div class="gallery-caption-title">风光四</div>
+          <div class="gallery-caption-tag">社团日常</div>
         </div>
       </div>
       <div class="gallery-item">
-        <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=video%20editing%20camera%20shooting%20behind%20scenes%20students%20blue%20tone%20minimalist%20clean&image_size=landscape_4_3" alt="拍摄实训" loading="lazy" data-placeholder="拍摄实训 1">
+        <img src="gallery-5.png" alt="风光图 5" loading="lazy" data-placeholder="风光图 5" onerror="this.parentElement.style.opacity='0.2'">
         <div class="gallery-caption">
-          <div class="gallery-caption-title">拍摄剪辑实训</div>
-          <div class="gallery-caption-tag">实训 · 创新部</div>
+          <div class="gallery-caption-title">风光五</div>
+          <div class="gallery-caption-tag">社团日常</div>
         </div>
       </div>
       <div class="gallery-item">
-        <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=minimalist%20poster%20design%20blue%20white%20geometric%20typography%20clean%20layout%20graphic&image_size=landscape_4_3" alt="海报设计作品" loading="lazy" data-placeholder="设计作品 1">
+        <img src="gallery-6.png" alt="风光图 6" loading="lazy" data-placeholder="风光图 6" onerror="this.parentElement.style.opacity='0.2'">
         <div class="gallery-caption">
-          <div class="gallery-caption-title">海报设计作品</div>
-          <div class="gallery-caption-tag">作品 · 创新部</div>
-        </div>
-      </div>
-      <div class="gallery-item">
-        <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=student%20team%20group%20photo%20young%20people%20smiling%20outdoor%20blue%20tone%20minimalist%20clean&image_size=landscape_4_3" alt="团队合照" loading="lazy" data-placeholder="团队合照 1">
-        <div class="gallery-caption">
-          <div class="gallery-caption-title">社团年度合照</div>
-          <div class="gallery-caption-tag">合照 · 全体社员</div>
-        </div>
-      </div>
-      <div class="gallery-item">
-        <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=programming%20code%20screen%20laptop%20learning%20students%20blue%20tone%20minimalist%20clean&image_size=landscape_4_3" alt="编程课堂" loading="lazy" data-placeholder="编程课堂 1">
-        <div class="gallery-caption">
-          <div class="gallery-caption-title">编程基础课堂</div>
-          <div class="gallery-caption-tag">培训 · 编程入门</div>
+          <div class="gallery-caption-title">风光六</div>
+          <div class="gallery-caption-tag">社团日常</div>
         </div>
       </div>
     </div>
@@ -1109,7 +1089,7 @@ section { position: relative; padding: var(--space-section) 0; }
 
   <div class="container">
     <p class="gallery-foot reveal">
-      累计完成 <strong>500+</strong> 次教室检修 · 产出 <strong>200+</strong> 件原创作品
+      累计完成 <strong>500+</strong> 次教室检修
     </p>
   </div>
 </section>
@@ -1126,7 +1106,7 @@ section { position: relative; padding: var(--space-section) 0; }
       <div class="section-eyebrow" style="color: var(--color-accent);">JOIN US</div>
       <h2 class="section-title" style="color: var(--color-text);">加入我们 · 全员成长</h2>
       <p class="section-subtitle" style="color: var(--color-text); opacity: 0.78;">
-        零基础可入、无需基础。分工科学、人人有事做，绝不打杂摸鱼。
+        零基础可入、无需基础、分工科学。
       </p>
     </div>
 
@@ -1136,8 +1116,8 @@ section { position: relative; padding: var(--space-section) 0; }
         <div class="join-info-eyebrow">ABOUT US</div>
         <h3 class="join-info-title">校园性价比最高的全能技术社团</h3>
         <p class="join-info-text">
-          学校官方电教服务技术型社团，一边服务校园，一边免费学全套电脑、办公、编程、剪辑、设计技能。
-          分工科学、人人有事做，绝不打杂摸鱼 —— 加入即学，学即能用。
+          学校官方多媒体技术型社团，一边服务校园，一边免费学全套电脑、办公、编程、剪辑、设计技能。
+          分工科学 —— 加入即学，学即能用。
         </p>
 
         <div class="join-benefits">
@@ -1163,7 +1143,7 @@ section { position: relative; padding: var(--space-section) 0; }
           </div>
           <div class="join-benefit">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-            <span>不打杂摸鱼 · 全员成长</span>
+            <span>学习多媒体 · 全员成长</span>
           </div>
         </div>
 
@@ -1181,24 +1161,11 @@ section { position: relative; padding: var(--space-section) 0; }
       <!-- 右侧：二维码 + 报名步骤 -->
       <div class="join-qr reveal">
         <h3 class="join-qr-title">扫码加入招新群</h3>
-        <p class="join-qr-subtitle">QQ 群 / 微信群 · 实时答疑</p>
+        <p class="join-qr-subtitle">QQ 群  · 实时答疑</p>
 
-        <!-- QR 占位区 -->
+        <!-- QR 占位区 - 可替换为实际二维码 -->
         <div class="qr-placeholder" id="qr-placeholder" data-placeholder="招新群二维码">
-          <div class="qr-pattern">
-            <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
-            <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
-            <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
-            <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
-            <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
-            <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
-            <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
-            <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
-          </div>
-          <div class="qr-corner qr-corner-tl"></div>
-          <div class="qr-corner qr-corner-tr"></div>
-          <div class="qr-corner qr-corner-bl"></div>
-          <div class="qr-corner qr-corner-br"></div>
+          <img src="qr.png" alt="招新群二维码" onerror="this.style.display='none'">
         </div>
 
         <p class="join-qr-note">扫描上方二维码 · 加入招新答疑群</p>
@@ -1235,7 +1202,9 @@ section { position: relative; padding: var(--space-section) 0; }
     <div class="footer-content">
       <div class="footer-brand">
         <a href="#hero" class="nav-logo">
-          <span class="nav-logo-mark">M</span>
+          <span class="nav-logo-mark">
+        <img src="logo.png" alt="多媒体协会标志" onerror="this.style.display='none'">
+      </span>
           <span>多媒体协会</span>
         </a>
         <p class="footer-brand-text">
