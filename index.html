@@ -1,0 +1,1426 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>校园多媒体协会 · 电教服务技术社团</title>
+<meta name="description" content="学校官方电教服务技术型社团 - 全校教室多媒体设备维修、每周电教巡检打分、社团宣传记录。零基础可学电脑运维、WPS 办公、编程基础、拍摄剪辑、海报设计、统筹管理六大技能。">
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Noto+Serif+SC:wght@600;700;900&family=Manrope:wght@300;400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   设计令牌 (Design Tokens) · 主色：浅蓝 / 纯白 / 浅灰
+   ============================================================ */
+:root {
+  --color-blue-light: #DBEAFE;
+  --color-blue: #93C5FD;
+  --color-blue-deep: #3B82F6;
+  --color-accent: #2563EB;
+  --color-white: #FFFFFF;
+  --color-gray-50: #F8FAFC;
+  --color-gray-100: #F1F5F9;
+  --color-gray-200: #E2E8F0;
+  --color-gray-300: #CBD5E1;
+  --color-gray-500: #64748B;
+  --color-gray-700: #334155;
+  --color-text: #0F172A;
+  --color-text-soft: #475569;
+  --color-text-muted: #94A3B8;
+
+  /* 渐变 */
+  --gradient-hero: radial-gradient(ellipse at 15% 20%, rgba(219, 234, 254, 0.6) 0%, transparent 55%),
+                   radial-gradient(ellipse at 85% 30%, rgba(147, 197, 253, 0.35) 0%, transparent 55%),
+                   radial-gradient(ellipse at 50% 90%, rgba(165, 180, 252, 0.18) 0%, transparent 50%),
+                   linear-gradient(180deg, #F8FAFF 0%, #FFFFFF 100%);
+  --gradient-card-1: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%);
+  --gradient-card-2: linear-gradient(135deg, #60A5FA 0%, #3B82F6 100%);
+  --gradient-card-3: linear-gradient(135deg, #93C5FD 0%, #60A5FA 100%);
+  --gradient-glass: linear-gradient(135deg, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.5) 100%);
+  --gradient-mesh: radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.12) 0px, transparent 50%),
+                   radial-gradient(at 100% 100%, rgba(147, 197, 253, 0.18) 0px, transparent 50%);
+
+  /* 阴影 */
+  --shadow-xs: 0 2px 8px -2px rgba(37, 99, 235, 0.08);
+  --shadow-sm: 0 4px 16px -4px rgba(37, 99, 235, 0.12);
+  --shadow-soft: 0 10px 40px -10px rgba(37, 99, 235, 0.15);
+  --shadow-hover: 0 25px 60px -15px rgba(37, 99, 235, 0.25);
+  --shadow-glass: 0 8px 32px -8px rgba(37, 99, 235, 0.18);
+
+  /* 圆角 */
+  --radius-sm: 12px;
+  --radius-md: 20px;
+  --radius-lg: 28px;
+  --radius-xl: 36px;
+  --radius-full: 999px;
+
+  /* 曲线 */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* 间距 */
+  --space-section: clamp(80px, 10vw, 130px);
+  --container-max: 1240px;
+  --container-pad: clamp(20px, 4vw, 48px);
+
+  /* 字体 */
+  --font-sans: 'Manrope', 'Noto Sans SC', sans-serif;
+  --font-serif: 'Noto Serif SC', serif;
+  --font-display: 'Syne', 'Noto Serif SC', serif;
+}
+
+/* ============================================================
+   基础重置
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--color-text);
+  background: var(--color-white);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+ul { list-style: none; }
+::selection { background: var(--color-blue-deep); color: white; }
+
+/* 噪点纹理 */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  pointer-events: none; z-index: 1;
+  opacity: 0.022;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: multiply;
+}
+
+/* ============================================================
+   排版
+   ============================================================ */
+h1, h2, h3, h4 { font-family: var(--font-serif); font-weight: 700; line-height: 1.2; color: var(--color-text); }
+
+.section-eyebrow {
+  font-family: var(--font-display);
+  font-size: 0.75rem; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--color-accent);
+  display: inline-flex; align-items: center; gap: 12px;
+  margin-bottom: 16px;
+}
+.section-eyebrow::before {
+  content: ''; width: 32px; height: 1px;
+  background: var(--color-accent); opacity: 0.55;
+}
+.section-title { font-size: clamp(1.9rem, 4vw, 2.8rem); margin-bottom: 16px; letter-spacing: -0.01em; }
+.section-subtitle { font-size: clamp(0.95rem, 1.2vw, 1.05rem); color: var(--color-text-soft); max-width: 600px; line-height: 1.85; }
+
+.container { max-width: var(--container-max); margin: 0 auto; padding: 0 var(--container-pad); position: relative; z-index: 2; }
+section { position: relative; padding: var(--space-section) 0; }
+.section-header { text-align: center; margin-bottom: 64px; }
+.section-header .section-eyebrow { justify-content: center; }
+.section-header .section-subtitle { margin: 0 auto; }
+
+/* ============================================================
+   滚动渐入
+   ============================================================ */
+.reveal { opacity: 0; transform: translateY(40px); transition: opacity 1s var(--ease-out), transform 1s var(--ease-out); }
+.reveal.is-visible { opacity: 1; transform: translateY(0); }
+.reveal-stagger > * { opacity: 0; transform: translateY(30px); transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out); }
+.reveal-stagger.is-visible > * { opacity: 1; transform: translateY(0); }
+.reveal-stagger.is-visible > *:nth-child(1) { transition-delay: 0.05s; }
+.reveal-stagger.is-visible > *:nth-child(2) { transition-delay: 0.15s; }
+.reveal-stagger.is-visible > *:nth-child(3) { transition-delay: 0.25s; }
+.reveal-stagger.is-visible > *:nth-child(4) { transition-delay: 0.35s; }
+.reveal-stagger.is-visible > *:nth-child(5) { transition-delay: 0.45s; }
+.reveal-stagger.is-visible > *:nth-child(6) { transition-delay: 0.55s; }
+
+/* ============================================================
+   顶部导航
+   ============================================================ */
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 0; transition: all 0.4s var(--ease-out); }
+.nav.scrolled {
+  padding: 12px 0;
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  box-shadow: 0 1px 0 rgba(37, 99, 235, 0.08), 0 4px 20px -10px rgba(37, 99, 235, 0.15);
+}
+.nav-inner { max-width: var(--container-max); margin: 0 auto; padding: 0 var(--container-pad); display: flex; align-items: center; justify-content: space-between; }
+.nav-logo { display: flex; align-items: center; gap: 10px; font-family: var(--font-display); font-weight: 800; font-size: 1.05rem; letter-spacing: -0.02em; color: var(--color-text); }
+.nav-logo-mark {
+  width: 34px; height: 34px;
+  border-radius: 9px;
+  background: linear-gradient(135deg, var(--color-blue-deep), var(--color-accent));
+  display: grid; place-items: center;
+  color: white; font-family: var(--font-display); font-weight: 800; font-size: 0.85rem;
+  box-shadow: 0 4px 12px -2px rgba(37, 99, 235, 0.35);
+}
+.nav-links { display: flex; align-items: center; gap: 4px; }
+.nav-link {
+  position: relative;
+  padding: 8px 18px; font-size: 0.92rem; font-weight: 500;
+  color: var(--color-text-soft); border-radius: var(--radius-full);
+  transition: color 0.3s var(--ease-out);
+}
+.nav-link::after {
+  content: ''; position: absolute; bottom: 4px; left: 50%;
+  transform: translateX(-50%) scaleX(0);
+  width: 20px; height: 2px; background: var(--color-accent); border-radius: 2px;
+  transition: transform 0.3s var(--ease-spring);
+}
+.nav-link:hover { color: var(--color-accent); }
+.nav-link:hover::after, .nav-link.active::after { transform: translateX(-50%) scaleX(1); }
+.nav-link.active { color: var(--color-accent); }
+.nav-cta {
+  padding: 10px 22px; background: var(--color-text); color: white;
+  border-radius: var(--radius-full); font-size: 0.88rem; font-weight: 600;
+  transition: all 0.3s var(--ease-out);
+}
+.nav-cta:hover { background: var(--color-accent); transform: translateY(-2px); box-shadow: 0 8px 20px -6px rgba(37, 99, 235, 0.45); }
+.nav-toggle { display: none; width: 44px; height: 44px; border-radius: var(--radius-sm); background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); position: relative; }
+.nav-toggle span { position: absolute; left: 12px; right: 12px; height: 2px; background: var(--color-text); border-radius: 2px; transition: all 0.3s var(--ease-out); }
+.nav-toggle span:nth-child(1) { top: 16px; }
+.nav-toggle span:nth-child(2) { top: 21px; }
+.nav-toggle span:nth-child(3) { top: 26px; }
+.nav-toggle.open span:nth-child(1) { top: 21px; transform: rotate(45deg); }
+.nav-toggle.open span:nth-child(2) { opacity: 0; }
+.nav-toggle.open span:nth-child(3) { top: 21px; transform: rotate(-45deg); }
+
+/* ============================================================
+   Hero 首页封面
+   ============================================================ */
+.hero { min-height: 100vh; display: flex; align-items: center; position: relative; background: var(--gradient-hero); overflow: hidden; padding-top: 100px; }
+.hero-decor { position: absolute; pointer-events: none; z-index: 1; }
+.hero-decor-1 { top: 18%; left: 8%; width: 120px; height: 120px; border-radius: 50%; background: radial-gradient(circle, rgba(59, 130, 246, 0.25) 0%, transparent 70%); filter: blur(20px); animation: float-slow 8s ease-in-out infinite; }
+.hero-decor-2 { top: 25%; right: 10%; width: 180px; height: 180px; border-radius: 50%; background: radial-gradient(circle, rgba(147, 197, 253, 0.4) 0%, transparent 70%); filter: blur(30px); animation: float-slow 10s ease-in-out infinite reverse; }
+.hero-decor-3 { bottom: 22%; left: 18%; width: 90px; height: 90px; border-radius: 50%; background: radial-gradient(circle, rgba(219, 234, 254, 0.5) 0%, transparent 70%); filter: blur(15px); animation: float-slow 7s ease-in-out infinite; }
+.hero-decor-4 { top: 50%; right: 30%; width: 10px; height: 10px; border-radius: 50%; background: var(--color-blue-deep); opacity: 0.55; animation: float-slow 6s ease-in-out infinite; }
+.hero-decor-5 { top: 35%; left: 45%; width: 6px; height: 6px; border-radius: 50%; background: var(--color-blue); opacity: 0.7; animation: float-slow 9s ease-in-out infinite; }
+.hero-line { position: absolute; background: linear-gradient(90deg, transparent, rgba(37, 99, 235, 0.18), transparent); height: 1px; z-index: 1; }
+.hero-line-1 { top: 30%; left: 0; right: 30%; animation: line-grow 2s var(--ease-out) 0.5s both; transform-origin: left; }
+.hero-line-2 { bottom: 28%; left: 20%; right: 0; animation: line-grow 2s var(--ease-out) 0.8s both; transform-origin: right; }
+
+@keyframes float-slow { 0%, 100% { transform: translateY(0) translateX(0); } 50% { transform: translateY(-30px) translateX(15px); } }
+@keyframes line-grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+.hero-inner { position: relative; z-index: 2; width: 100%; text-align: center; }
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 8px 18px; background: rgba(255, 255, 255, 0.75); backdrop-filter: blur(10px);
+  border: 1px solid rgba(37, 99, 235, 0.15); border-radius: var(--radius-full);
+  font-size: 0.82rem; font-weight: 500; color: var(--color-accent); margin-bottom: 32px;
+  animation: hero-fade-up 1s var(--ease-out) 0.2s both;
+}
+.hero-badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--color-accent); animation: pulse-dot 2s ease-in-out infinite; }
+@keyframes pulse-dot { 0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.4); } 50% { opacity: 0.7; box-shadow: 0 0 0 6px rgba(37, 99, 235, 0); } }
+
+.hero-title-en {
+  font-family: var(--font-display); font-size: clamp(0.85rem, 1.4vw, 1rem);
+  font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--color-accent); margin-bottom: 20px;
+  animation: hero-fade-up 1s var(--ease-out) 0.3s both;
+}
+.hero-title {
+  font-family: var(--font-serif); font-size: clamp(2.6rem, 6vw, 4.8rem);
+  font-weight: 900; line-height: 1.1; letter-spacing: -0.03em; margin-bottom: 8px;
+  animation: hero-fade-up 1.2s var(--ease-out) 0.4s both;
+}
+.hero-title .accent {
+  background: linear-gradient(135deg, var(--color-blue-deep) 0%, var(--color-accent) 100%);
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  font-style: italic;
+}
+.hero-subtitle {
+  font-size: clamp(1rem, 1.5vw, 1.18rem); color: var(--color-text-soft);
+  max-width: 640px; margin: 24px auto 40px; line-height: 1.85;
+  animation: hero-fade-up 1.2s var(--ease-out) 0.6s both;
+}
+.hero-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; animation: hero-fade-up 1.2s var(--ease-out) 0.8s both; }
+
+.btn { display: inline-flex; align-items: center; gap: 10px; padding: 16px 32px; border-radius: var(--radius-full); font-size: 0.95rem; font-weight: 600; transition: all 0.35s var(--ease-out); cursor: pointer; }
+.btn-primary { background: var(--color-text); color: white; }
+.btn-primary:hover { background: var(--color-accent); transform: translateY(-3px); box-shadow: 0 14px 30px -10px rgba(37, 99, 235, 0.5); }
+.btn-secondary { background: rgba(255, 255, 255, 0.75); color: var(--color-text); backdrop-filter: blur(10px); border: 1px solid rgba(37, 99, 235, 0.22); }
+.btn-secondary:hover { background: white; transform: translateY(-3px); box-shadow: 0 14px 30px -10px rgba(37, 99, 235, 0.3); }
+.btn svg { width: 18px; height: 18px; transition: transform 0.3s var(--ease-out); }
+.btn:hover svg { transform: translateX(4px); }
+@keyframes hero-fade-up { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+.hero-scroll-hint {
+  position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+  font-size: 0.74rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--color-text-muted);
+  animation: hero-fade-up 1.5s var(--ease-out) 1.2s both;
+}
+.hero-scroll-line { width: 1px; height: 40px; background: linear-gradient(to bottom, var(--color-accent), transparent); position: relative; overflow: hidden; }
+.hero-scroll-line::after { content: ''; position: absolute; top: -40px; left: 0; width: 100%; height: 40px; background: var(--color-accent); animation: scroll-down 2s var(--ease-in-out) infinite; }
+@keyframes scroll-down { 0% { top: -40px; } 100% { top: 40px; } }
+
+.hero-stats { display: flex; justify-content: center; gap: clamp(28px, 5vw, 72px); margin-top: 72px; animation: hero-fade-up 1.5s var(--ease-out) 1s both; flex-wrap: wrap; }
+.hero-stat { text-align: center; }
+.hero-stat-num { font-family: var(--font-display); font-size: clamp(1.7rem, 2.6vw, 2.4rem); font-weight: 800; color: var(--color-text); line-height: 1; }
+.hero-stat-num .plus { color: var(--color-accent); font-size: 0.7em; }
+.hero-stat-label { font-size: 0.8rem; color: var(--color-text-soft); margin-top: 8px; letter-spacing: 0.04em; }
+
+/* 六大学技能标签横排 */
+.hero-skills-row {
+  display: flex; justify-content: center; flex-wrap: wrap; gap: 12px;
+  margin-top: 48px; max-width: 720px; margin-left: auto; margin-right: auto;
+  animation: hero-fade-up 1.5s var(--ease-out) 0.9s both;
+}
+.hero-skill-tag {
+  padding: 8px 16px; background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(8px);
+  border: 1px solid rgba(37, 99, 235, 0.15); border-radius: var(--radius-full);
+  font-size: 0.82rem; color: var(--color-text-soft); font-weight: 500;
+  display: inline-flex; align-items: center; gap: 6px;
+  transition: all 0.3s var(--ease-out);
+}
+.hero-skill-tag:hover { background: var(--color-accent); color: white; transform: translateY(-2px); border-color: transparent; }
+.hero-skill-tag svg { width: 14px; height: 14px; }
+
+/* ============================================================
+   部门介绍 - 三大部门卡片
+   ============================================================ */
+.departments { background: var(--color-white); }
+.departments-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+  margin-top: 64px;
+}
+.dept-card {
+  position: relative; padding: 40px 32px; background: var(--color-gray-50);
+  border: 1px solid var(--color-gray-200); border-radius: var(--radius-lg);
+  transition: all 0.5s var(--ease-out); cursor: pointer; overflow: hidden;
+}
+/* 错落式：中间卡片上移 */
+.dept-card:nth-child(2) { transform: translateY(-24px); }
+
+.dept-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+  background: var(--card-gradient); opacity: 0.95; transition: height 0.5s var(--ease-out);
+}
+.dept-card::after {
+  content: ''; position: absolute; inset: 0;
+  background: var(--card-gradient); opacity: 0;
+  transition: opacity 0.5s var(--ease-out); pointer-events: none;
+  border-radius: inherit; z-index: 0;
+}
+.dept-card:nth-child(1) { --card-gradient: var(--gradient-card-1); }
+.dept-card:nth-child(2) { --card-gradient: var(--gradient-card-2); }
+.dept-card:nth-child(3) { --card-gradient: var(--gradient-card-3); }
+
+.dept-card > * { position: relative; z-index: 1; }
+
+.dept-card:hover {
+  transform: translateY(-12px); box-shadow: var(--shadow-hover); border-color: transparent;
+}
+.dept-card:nth-child(2):hover { transform: translateY(-36px); }
+.dept-card:hover::before { height: 100%; opacity: 0.95; }
+.dept-card:hover::after { opacity: 0.04; }
+
+.dept-icon {
+  width: 60px; height: 60px; border-radius: var(--radius-md);
+  background: var(--card-gradient); display: grid; place-items: center;
+  color: white; margin-bottom: 24px;
+  transition: all 0.5s var(--ease-out);
+  box-shadow: 0 8px 20px -6px rgba(37, 99, 235, 0.35);
+}
+.dept-card:hover .dept-icon { background: rgba(255, 255, 255, 0.25); backdrop-filter: blur(10px); transform: scale(1.05) rotate(-5deg); }
+.dept-icon svg { width: 28px; height: 28px; }
+
+.dept-tag-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; flex-wrap: wrap; }
+.dept-name-en {
+  font-family: var(--font-display); font-size: 0.7rem; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase; color: var(--color-accent);
+  transition: color 0.4s;
+}
+.dept-card:hover .dept-name-en { color: rgba(255, 255, 255, 0.9); }
+
+.dept-role {
+  font-size: 0.72rem; padding: 3px 10px;
+  background: rgba(37, 99, 235, 0.1); color: var(--color-accent);
+  border-radius: var(--radius-full); font-weight: 500;
+  transition: all 0.4s;
+}
+.dept-card:hover .dept-role { background: rgba(255, 255, 255, 0.25); color: white; }
+
+.dept-name { font-family: var(--font-serif); font-size: 1.5rem; font-weight: 700; margin-bottom: 12px; transition: color 0.4s; }
+.dept-card:hover .dept-name { color: white; }
+
+.dept-desc { font-size: 0.92rem; color: var(--color-text-soft); line-height: 1.75; margin-bottom: 20px; transition: color 0.4s; }
+.dept-card:hover .dept-desc { color: rgba(255, 255, 255, 0.85); }
+
+.dept-block-title {
+  font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--color-text-muted);
+  margin: 20px 0 10px; display: flex; align-items: center; gap: 8px;
+  transition: color 0.4s;
+}
+.dept-card:hover .dept-block-title { color: rgba(255, 255, 255, 0.75); }
+.dept-block-title svg { width: 14px; height: 14px; }
+
+.dept-skills { display: flex; flex-wrap: wrap; gap: 8px; }
+.dept-skill {
+  padding: 5px 12px; background: rgba(37, 99, 235, 0.08); border-radius: var(--radius-full);
+  font-size: 0.76rem; color: var(--color-accent); transition: all 0.4s;
+}
+.dept-card:hover .dept-skill { background: rgba(255, 255, 255, 0.25); color: white; }
+
+.dept-detail-block { padding-top: 20px; margin-top: 20px; border-top: 1px solid rgba(37, 99, 235, 0.1); }
+.dept-card:hover .dept-detail-block { border-top-color: rgba(255, 255, 255, 0.2); }
+.dept-detail-text { font-size: 0.86rem; color: var(--color-text-soft); line-height: 1.65; transition: color 0.4s; }
+.dept-card:hover .dept-detail-text { color: rgba(255, 255, 255, 0.85); }
+
+.dept-highlight {
+  display: flex; align-items: flex-start; gap: 8px;
+  padding: 12px 14px; background: rgba(37, 99, 235, 0.08);
+  border-radius: var(--radius-sm); margin-top: 20px;
+  font-size: 0.84rem; color: var(--color-accent); font-weight: 500;
+  transition: all 0.4s; line-height: 1.55;
+}
+.dept-card:hover .dept-highlight { background: rgba(255, 255, 255, 0.2); color: white; }
+.dept-highlight svg { width: 16px; height: 16px; flex-shrink: 0; margin-top: 2px; }
+
+/* ============================================================
+   社团活动 - 时间轴
+   ============================================================ */
+.activities { background: linear-gradient(180deg, var(--color-white) 0%, var(--color-gray-50) 100%); }
+.timeline { position: relative; max-width: 1000px; margin: 80px auto 0; padding: 20px 0; }
+.timeline::before {
+  content: ''; position: absolute; top: 0; bottom: 0; left: 50%; transform: translateX(-50%);
+  width: 2px; background: linear-gradient(to bottom, transparent 0%, var(--color-blue) 10%, var(--color-blue-deep) 90%, transparent 100%);
+}
+.timeline-item {
+  position: relative; width: 50%; padding: 24px 48px;
+  opacity: 0; transform: translateY(40px);
+  transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
+}
+.timeline-item.is-visible { opacity: 1; transform: translateY(0); }
+.timeline-item:nth-child(odd) { left: 0; text-align: right; }
+.timeline-item:nth-child(even) { left: 50%; }
+
+.timeline-item::after {
+  content: ''; position: absolute; top: 36px;
+  width: 18px; height: 18px; border-radius: 50%;
+  background: white; border: 3px solid var(--color-accent);
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15);
+  transition: all 0.4s var(--ease-out); z-index: 2;
+}
+.timeline-item:nth-child(odd)::after { right: -9px; }
+.timeline-item:nth-child(even)::after { left: -9px; }
+.timeline-item.is-visible::after {
+  background: var(--color-accent);
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.25), 0 0 20px rgba(37, 99, 235, 0.4);
+}
+
+.timeline-card {
+  padding: 28px; background: white; border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm); border: 1px solid var(--color-gray-200);
+  transition: all 0.4s var(--ease-out);
+}
+.timeline-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); border-color: var(--color-blue); }
+
+.timeline-date {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 5px 14px; background: var(--gradient-card-1); color: white;
+  border-radius: var(--radius-full); font-size: 0.76rem; font-weight: 600;
+  margin-bottom: 14px;
+}
+.timeline-item:nth-child(odd) .timeline-date { margin-right: auto; }
+.timeline-item:nth-child(even) .timeline-date { margin-left: auto; }
+
+.timeline-title { font-family: var(--font-serif); font-size: 1.2rem; font-weight: 700; margin-bottom: 10px; color: var(--color-text); }
+.timeline-desc { font-size: 0.9rem; color: var(--color-text-soft); line-height: 1.7; margin-bottom: 16px; }
+.timeline-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.timeline-item:nth-child(odd) .timeline-tags { justify-content: flex-end; }
+.timeline-tag { padding: 4px 10px; background: rgba(37, 99, 235, 0.08); border-radius: var(--radius-sm); font-size: 0.72rem; color: var(--color-accent); }
+
+/* ============================================================
+   社团风光 - 画廊
+   ============================================================ */
+.gallery { background: var(--color-gray-50); overflow: hidden; }
+.gallery-track-wrap {
+  margin-top: 64px; overflow: hidden; position: relative;
+  mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+}
+.gallery-track { display: flex; gap: 24px; width: max-content; animation: gallery-flow 50s linear infinite; }
+.gallery-track-wrap:hover .gallery-track { animation-play-state: paused; }
+@keyframes gallery-flow { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+.gallery-item {
+  position: relative; width: 340px; height: 260px;
+  border-radius: var(--radius-md); overflow: hidden;
+  flex-shrink: 0; background: var(--gradient-mesh); box-shadow: var(--shadow-soft); cursor: pointer;
+}
+.gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s var(--ease-out); }
+.gallery-item:hover img { transform: scale(1.08); }
+.gallery-item::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 50%, rgba(15, 23, 42, 0.55) 100%);
+  opacity: 0; transition: opacity 0.4s;
+}
+.gallery-item:hover::after { opacity: 1; }
+.gallery-caption {
+  position: absolute; bottom: 20px; left: 20px; right: 20px;
+  color: white; z-index: 2;
+  transform: translateY(20px); opacity: 0; transition: all 0.4s var(--ease-out);
+}
+.gallery-item:hover .gallery-caption { transform: translateY(0); opacity: 1; }
+.gallery-caption-title { font-family: var(--font-serif); font-size: 1rem; font-weight: 600; margin-bottom: 4px; }
+.gallery-caption-tag { font-size: 0.74rem; opacity: 0.85; letter-spacing: 0.05em; }
+.gallery-foot { text-align: center; margin-top: 48px; font-size: 0.9rem; color: var(--color-text-soft); }
+.gallery-foot strong { color: var(--color-accent); font-weight: 600; }
+
+/* ============================================================
+   加入我们 - 磨砂玻璃
+   ============================================================ */
+.join {
+  position: relative;
+  background: linear-gradient(135deg, #DBEAFE 0%, #93C5FD 60%, #60A5FA 100%);
+  overflow: hidden;
+}
+.join::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 30% 20%, rgba(255, 255, 255, 0.35) 0%, transparent 50%),
+              radial-gradient(ellipse at 70% 80%, rgba(255, 255, 255, 0.25) 0%, transparent 50%);
+}
+.join-decor { position: absolute; border-radius: 50%; filter: blur(40px); z-index: 0; }
+.join-decor-1 { top: 10%; left: 5%; width: 200px; height: 200px; background: rgba(255, 255, 255, 0.3); animation: float-slow 12s ease-in-out infinite; }
+.join-decor-2 { bottom: 10%; right: 10%; width: 250px; height: 250px; background: rgba(59, 130, 246, 0.2); animation: float-slow 15s ease-in-out infinite reverse; }
+
+.join-content { position: relative; z-index: 2; display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: stretch; }
+.join-info, .join-qr {
+  padding: 48px; background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(30px) saturate(180%); -webkit-backdrop-filter: blur(30px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: var(--radius-xl); box-shadow: var(--shadow-glass);
+}
+.join-info-eyebrow { font-family: var(--font-display); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--color-accent); margin-bottom: 16px; }
+.join-info-title { font-family: var(--font-serif); font-size: clamp(1.7rem, 2.8vw, 2.2rem); font-weight: 700; line-height: 1.25; margin-bottom: 20px; color: var(--color-text); }
+.join-info-text { font-size: 0.94rem; color: var(--color-text); line-height: 1.85; margin-bottom: 28px; opacity: 0.85; }
+
+.join-benefits { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 32px; }
+.join-benefit { display: flex; align-items: flex-start; gap: 10px; font-size: 0.88rem; color: var(--color-text); line-height: 1.5; }
+.join-benefit svg { width: 18px; height: 18px; color: var(--color-accent); flex-shrink: 0; margin-top: 2px; }
+
+.join-skills-title { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-text-soft); margin-bottom: 12px; }
+.join-skills { display: flex; flex-wrap: wrap; gap: 8px; }
+.join-skill {
+  padding: 6px 14px; background: rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(37, 99, 235, 0.22); border-radius: var(--radius-full);
+  font-size: 0.82rem; color: var(--color-text); transition: all 0.3s;
+}
+.join-skill:hover { background: var(--color-accent); color: white; border-color: transparent; transform: translateY(-2px); }
+
+.join-qr { display: flex; flex-direction: column; align-items: center; text-align: center; }
+.join-qr-title { font-family: var(--font-serif); font-size: 1.4rem; font-weight: 700; margin-bottom: 8px; color: var(--color-text); }
+.join-qr-subtitle { font-size: 0.88rem; color: var(--color-text-soft); margin-bottom: 28px; }
+
+.qr-placeholder {
+  width: 200px; height: 200px; background: white; border-radius: var(--radius-md);
+  display: grid; place-items: center; position: relative;
+  box-shadow: var(--shadow-sm); margin-bottom: 24px; overflow: hidden;
+}
+.qr-pattern { width: 160px; height: 160px; display: grid; grid-template-columns: repeat(8, 1fr); grid-template-rows: repeat(8, 1fr); gap: 2px; }
+.qr-pattern div { background: var(--color-text); border-radius: 2px; }
+.qr-pattern div:nth-child(3n) { background: transparent; }
+.qr-pattern div:nth-child(5n+2) { background: transparent; }
+.qr-pattern div:nth-child(7n+3) { background: transparent; }
+.qr-pattern div:nth-child(4n+1) { background: var(--color-text); }
+.qr-corner { position: absolute; width: 36px; height: 36px; border: 4px solid var(--color-text); border-radius: 6px; }
+.qr-corner-tl { top: 12px; left: 12px; border-right: none; border-bottom: none; }
+.qr-corner-tr { top: 12px; right: 12px; border-left: none; border-bottom: none; }
+.qr-corner-bl { bottom: 12px; left: 12px; border-right: none; border-top: none; }
+.qr-corner-br { bottom: 12px; right: 12px; border-left: none; border-top: none; }
+
+.join-qr-note { font-size: 0.82rem; color: var(--color-text-soft); margin-bottom: 20px; }
+.join-steps { width: 100%; text-align: left; margin-top: 8px; }
+.join-steps-title { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-text-soft); margin-bottom: 14px; text-align: center; }
+.join-step { display: flex; align-items: center; gap: 12px; padding: 10px 0; font-size: 0.88rem; color: var(--color-text); border-bottom: 1px solid rgba(37, 99, 235, 0.12); }
+.join-step:last-child { border-bottom: none; }
+.join-step-num { width: 24px; height: 24px; background: var(--color-accent); color: white; border-radius: 50%; display: grid; place-items: center; font-size: 0.74rem; font-weight: 700; flex-shrink: 0; }
+
+/* ============================================================
+   页脚
+   ============================================================ */
+.footer { background: var(--color-text); color: rgba(255, 255, 255, 0.7); padding: 64px 0 32px; }
+.footer-content { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 48px; }
+.footer-brand .nav-logo { color: white; margin-bottom: 16px; }
+.footer-brand-text { font-size: 0.88rem; line-height: 1.7; color: rgba(255, 255, 255, 0.5); max-width: 320px; }
+.footer-col-title { font-family: var(--font-display); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: white; margin-bottom: 16px; }
+.footer-link { display: block; font-size: 0.88rem; color: rgba(255, 255, 255, 0.6); padding: 6px 0; transition: all 0.3s; }
+.footer-link:hover { color: var(--color-blue); transform: translateX(4px); }
+.footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 32px; border-top: 1px solid rgba(255, 255, 255, 0.1); font-size: 0.82rem; color: rgba(255, 255, 255, 0.4); }
+.footer-social { display: flex; gap: 12px; }
+.footer-social-link { width: 40px; height: 40px; border-radius: 50%; background: rgba(255, 255, 255, 0.08); display: grid; place-items: center; color: rgba(255, 255, 255, 0.6); transition: all 0.3s; }
+.footer-social-link:hover { background: var(--color-accent); color: white; transform: translateY(-3px); }
+.footer-social-link svg { width: 18px; height: 18px; }
+
+/* ============================================================
+   响应式
+   ============================================================ */
+@media (max-width: 1024px) {
+  .departments-grid { grid-template-columns: 1fr; max-width: 560px; margin-left: auto; margin-right: auto; }
+  .dept-card:nth-child(2) { transform: translateY(0); }
+  .join-content { grid-template-columns: 1fr; }
+  .footer-content { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+    position: fixed; top: 0; right: 0; bottom: 0;
+    width: 80%; max-width: 320px;
+    background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px);
+    flex-direction: column; justify-content: center; gap: 8px; padding: 40px;
+    transform: translateX(100%); transition: transform 0.4s var(--ease-out);
+    box-shadow: -10px 0 40px -10px rgba(0, 0, 0, 0.15);
+  }
+  .nav-links.open { transform: translateX(0); }
+  .nav-link { font-size: 1.1rem; padding: 14px 24px; }
+  .nav-toggle { display: block; z-index: 101; }
+  .nav-cta { display: none; }
+
+  .timeline::before { left: 20px; }
+  .timeline-item { width: 100%; left: 0 !important; text-align: left !important; padding-left: 56px; padding-right: 16px; }
+  .timeline-item::after { left: 11px !important; right: auto !important; }
+  .timeline-item:nth-child(odd) .timeline-date { margin-right: 0; }
+  .timeline-item:nth-child(odd) .timeline-tags { justify-content: flex-start; }
+
+  .gallery-item { width: 280px; height: 210px; }
+  .join-info, .join-qr { padding: 32px 24px; }
+  .join-benefits { grid-template-columns: 1fr; }
+  .footer-content { grid-template-columns: 1fr; gap: 32px; }
+  .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+}
+
+@media (max-width: 480px) {
+  .hero-actions { flex-direction: column; width: 100%; }
+  .btn { justify-content: center; }
+}
+
+/* 减少动画偏好 */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     SECTION: 顶部导航栏
+     ============================================================ -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="#hero" class="nav-logo">
+      <span class="nav-logo-mark">M</span>
+      <span>多媒体协会</span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#departments" class="nav-link">部门介绍</a></li>
+      <li><a href="#activities" class="nav-link">社团活动</a></li>
+      <li><a href="#gallery" class="nav-link">社团风光</a></li>
+      <li><a href="#join" class="nav-link">加入我们</a></li>
+      <li><a href="#join" class="nav-cta">立即报名</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="菜单">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ============================================================
+     SECTION: 首页封面 (Hero)
+     ============================================================ -->
+<section class="hero" id="hero">
+  <!-- 浮动装饰 -->
+  <div class="hero-decor hero-decor-1"></div>
+  <div class="hero-decor hero-decor-2"></div>
+  <div class="hero-decor hero-decor-3"></div>
+  <div class="hero-decor hero-decor-4"></div>
+  <div class="hero-decor hero-decor-5"></div>
+  <div class="hero-line hero-line-1"></div>
+  <div class="hero-line hero-line-2"></div>
+
+  <div class="container">
+    <div class="hero-inner">
+      <!-- 招新状态徽章 -->
+      <div class="hero-badge" data-text="hero-badge">
+        <span class="hero-badge-dot"></span>
+        <span>学校官方电教服务技术社团 · 招新中</span>
+      </div>
+
+      <!-- 主标题英文 eyebrow -->
+      <div class="hero-title-en" data-text="hero-eyebrow">CAMPUS MULTIMEDIA · TECH SOCIETY</div>
+
+      <!-- 主标题 -->
+      <h1 class="hero-title" data-text="hero-title">
+        服务校园<br><span class="accent">学技成长</span>
+      </h1>
+
+      <!-- 副标题 -->
+      <p class="hero-subtitle" data-text="hero-subtitle">
+        学校官方电教服务技术型社团 · 负责全校教室多媒体设备维修、每周电教巡检打分、社团宣传记录。
+        零基础加入，免费学习电脑运维、WPS 办公、编程基础、拍摄剪辑、海报设计、统筹管理六大技能。
+      </p>
+
+      <!-- 行动按钮 -->
+      <div class="hero-actions">
+        <a href="#departments" class="btn btn-primary">
+          了解部门
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <a href="#join" class="btn btn-secondary">
+          加入我们
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 7a4 4 0 1 0 8 0 4 4 0 0 0-8 0M19 8v6M22 11h-6"/></svg>
+        </a>
+      </div>
+
+      <!-- 六大学技能标签 -->
+      <div class="hero-skills-row">
+        <span class="hero-skill-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>电脑运维</span>
+        <span class="hero-skill-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>WPS 办公</span>
+        <span class="hero-skill-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>编程基础</span>
+        <span class="hero-skill-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>拍摄剪辑</span>
+        <span class="hero-skill-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="13.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="10.5" r="2.5"/><circle cx="8.5" cy="7.5" r="2.5"/><circle cx="6.5" cy="12.5" r="2.5"/><path d="M12 22a10 10 0 1 1 0-20 10 10 0 0 1 10 10c0 1.5-.5 2-2 2h-2c-.6 0-1 .4-1 1v2c0 1.5-.5 3-2 3z"/></svg>海报设计</span>
+        <span class="hero-skill-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11H5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2h-4M9 11V7a3 3 0 0 1 6 0v4"/><rect x="9" y="11" width="6" height="6"/></svg>统筹管理</span>
+      </div>
+
+      <!-- 数据统计 -->
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="hero-stat-num">120<span class="plus">+</span></div>
+          <div class="hero-stat-label">在校社员</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">50<span class="plus">+</span></div>
+          <div class="hero-stat-label">教室检修</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">3</div>
+          <div class="hero-stat-label">核心部门</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">6</div>
+          <div class="hero-stat-label">可学技能</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-scroll-hint">
+    <span>SCROLL</span>
+    <div class="hero-scroll-line"></div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION: 部门介绍 - 三大部门
+     ============================================================ -->
+<section class="departments" id="departments">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">DEPARTMENTS</div>
+      <h2 class="section-title">三大部门 · 全员可学</h2>
+      <p class="section-subtitle">
+        检修部、运营部、创新部 —— 分工科学、人人有事做，三大部门技能互通、全员可学。
+      </p>
+    </div>
+
+    <div class="departments-grid reveal-stagger">
+      <!-- 部门 1: 检修部 -->
+      <div class="dept-card">
+        <div class="dept-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+          </svg>
+        </div>
+        <div class="dept-tag-row">
+          <span class="dept-name-en">MAINTENANCE</span>
+          <span class="dept-role">硬核电脑技术</span>
+        </div>
+        <h3 class="dept-name">检修部</h3>
+        <p class="dept-desc">负责全校教室电脑、投影仪、音响、多媒体设备故障排查、日常抢修维护；处理蓝屏、卡顿、系统报错、软件故障、驱动修复、系统清理优化。</p>
+
+        <div class="dept-block-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          可学技能（全员可学）
+        </div>
+        <div class="dept-skills">
+          <span class="dept-skill">电脑硬件认知</span>
+          <span class="dept-skill">故障排查</span>
+          <span class="dept-skill">系统重装与优化</span>
+          <span class="dept-skill">多媒体设备原理</span>
+          <span class="dept-skill">电脑提速维修</span>
+          <span class="dept-skill">编程入门</span>
+          <span class="dept-skill">代码逻辑思维</span>
+        </div>
+
+        <div class="dept-detail-block">
+          <div class="dept-block-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11H5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2h-4M9 11V7a3 3 0 0 1 6 0v4"/></svg>
+            部门职责
+          </div>
+          <p class="dept-detail-text">全校教室多媒体设备应急抢修、日常维护，处理蓝屏卡顿、软件故障、驱动问题与系统优化。</p>
+        </div>
+
+        <div class="dept-highlight">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          <span>掌握实打实电脑维修技术 · 计算机基础能力 · 适合想学电脑技术、喜欢钻研的同学</span>
+        </div>
+      </div>
+
+      <!-- 部门 2: 运营部 -->
+      <div class="dept-card">
+        <div class="dept-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+            <line x1="3" y1="9" x2="21" y2="9"/>
+            <line x1="9" y1="21" x2="9" y2="9"/>
+          </svg>
+        </div>
+        <div class="dept-tag-row">
+          <span class="dept-name-en">OPERATIONS</span>
+          <span class="dept-role">统筹文职全能</span>
+        </div>
+        <h3 class="dept-name">运营部</h3>
+        <p class="dept-desc">负责每周四全校多媒体卫生巡检、设备检查、卫生打分、台账记录、表格汇总、社团日常排班、资料整理、工作对接。</p>
+
+        <div class="dept-block-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          可学技能（全员重点学）
+        </div>
+        <div class="dept-skills">
+          <span class="dept-skill">Excel 制表</span>
+          <span class="dept-skill">数据统计</span>
+          <span class="dept-skill">文档排版</span>
+          <span class="dept-skill">PPT 制作</span>
+          <span class="dept-skill">表格美化</span>
+          <span class="dept-skill">公文写作</span>
+          <span class="dept-skill">数据整理</span>
+          <span class="dept-skill">工作统筹</span>
+          <span class="dept-skill">沟通管理</span>
+        </div>
+
+        <div class="dept-detail-block">
+          <div class="dept-block-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11H5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2h-4M9 11V7a3 3 0 0 1 6 0v4"/></svg>
+            部门职责
+          </div>
+          <p class="dept-detail-text">每周四全校多媒体卫生巡检、设备检查、卫生打分、台账记录、表格汇总、社团日常排班与工作对接。</p>
+        </div>
+
+        <div class="dept-highlight">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          <span>主打办公实用技能 · 未来学习、工作、实习最刚需 · 人人必学、终身受用</span>
+        </div>
+      </div>
+
+      <!-- 部门 3: 创新部 -->
+      <div class="dept-card">
+        <div class="dept-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+            <circle cx="12" cy="13" r="4"/>
+          </svg>
+        </div>
+        <div class="dept-tag-row">
+          <span class="dept-name-en">INNOVATION</span>
+          <span class="dept-role">新媒体全能</span>
+        </div>
+        <h3 class="dept-name">创新部</h3>
+        <p class="dept-desc">项目制 + 日常实训制。负责社团工作拍摄记录、活动素材留存、海报设计、宣传文案、短视频制作；无任务期间全员统一实训、技能练习、素材归档、内部互教。</p>
+
+        <div class="dept-block-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          可学技能（全员全覆盖）
+        </div>
+        <div class="dept-skills">
+          <span class="dept-skill">手机摄影构图</span>
+          <span class="dept-skill">实景拍摄</span>
+          <span class="dept-skill">视频剪辑</span>
+          <span class="dept-skill">调色配乐</span>
+          <span class="dept-skill">封面制作</span>
+          <span class="dept-skill">海报设计</span>
+          <span class="dept-skill">审美排版</span>
+          <span class="dept-skill">文案撰写</span>
+        </div>
+
+        <div class="dept-detail-block">
+          <div class="dept-block-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11H5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2h-4M9 11V7a3 3 0 0 1 6 0v4"/></svg>
+            部门职责
+          </div>
+          <p class="dept-detail-text">社团工作拍摄记录、活动素材留存、海报设计、宣传文案、短视频制作；淡季全员实训、素材归档、内部互教。</p>
+        </div>
+
+        <div class="dept-highlight">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          <span>项目制 + 日常实训制 · 淡季全员练技能 · 不打杂摸鱼 · 轻松积累个人作品</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION: 社团活动 - 时间轴
+     ============================================================ -->
+<section class="activities" id="activities">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">ACTIVITIES</div>
+      <h2 class="section-title">社团活动 · 时光轴</h2>
+      <p class="section-subtitle">
+        从校级固定工作到内部技能培训，再到团建交流 —— 服务校园与全员学技同步进行。
+      </p>
+    </div>
+
+    <div class="timeline">
+      <!-- 活动 1 -->
+      <div class="timeline-item">
+        <div class="timeline-card">
+          <div class="timeline-date">每周 · 固定工作</div>
+          <h3 class="timeline-title">全校多媒体设备应急抢修</h3>
+          <p class="timeline-desc">检修部牵头，全员轮岗参与。接到报修后第一时间响应，处理教室电脑、投影、音响故障，保障教学正常运转。</p>
+          <div class="timeline-tags">
+            <span class="timeline-tag">校级服务</span>
+            <span class="timeline-tag">应急抢修</span>
+            <span class="timeline-tag">实战学技</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 活动 2 -->
+      <div class="timeline-item">
+        <div class="timeline-card">
+          <div class="timeline-date">每周四 · 固定工作</div>
+          <h3 class="timeline-title">全校多媒体卫生巡检打分</h3>
+          <p class="timeline-desc">运营部组织，按分工巡查全校教室多媒体设备运行状况与卫生情况，打分记录、汇总台账、反馈整改。</p>
+          <div class="timeline-tags">
+            <span class="timeline-tag">常态巡检</span>
+            <span class="timeline-tag">设备检查</span>
+            <span class="timeline-tag">台账整理</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 活动 3 -->
+      <div class="timeline-item">
+        <div class="timeline-card">
+          <div class="timeline-date">每月 · 技能培训</div>
+          <h3 class="timeline-title">电脑维修与系统优化实训</h3>
+          <p class="timeline-desc">检修部主讲，面向全员开放。从硬件认知到故障排查、系统重装、驱动修复、提速优化，全程实操教学。</p>
+          <div class="timeline-tags">
+            <span class="timeline-tag">维修实训</span>
+            <span class="timeline-tag">系统优化</span>
+            <span class="timeline-tag">零基础友好</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 活动 4 -->
+      <div class="timeline-item">
+        <div class="timeline-card">
+          <div class="timeline-date">每月 · 技能培训</div>
+          <h3 class="timeline-title">WPS 办公与编程基础课堂</h3>
+          <p class="timeline-desc">运营部主讲 WPS 全套技能（Excel、PPT、文档排版）；创新部穿插编程基础入门、代码逻辑思维训练。</p>
+          <div class="timeline-tags">
+            <span class="timeline-tag">WPS 全套</span>
+            <span class="timeline-tag">编程入门</span>
+            <span class="timeline-tag">终身受用</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 活动 5 -->
+      <div class="timeline-item">
+        <div class="timeline-card">
+          <div class="timeline-date">每月 · 创作实训</div>
+          <h3 class="timeline-title">拍摄剪辑与海报设计练习</h3>
+          <p class="timeline-desc">创新部主导，项目制 + 日常实训。手机摄影构图、实景拍摄、视频剪辑调色、海报设计、宣传文案，淡季全员练习。</p>
+          <div class="timeline-tags">
+            <span class="timeline-tag">项目制</span>
+            <span class="timeline-tag">全员实训</span>
+            <span class="timeline-tag">作品积累</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 活动 6 -->
+      <div class="timeline-item">
+        <div class="timeline-card">
+          <div class="timeline-date">学期末 · 社团交流</div>
+          <h3 class="timeline-title">团建 · 技能互评 · 作品展示</h3>
+          <p class="timeline-desc">学期总结活动。社员展示一学期个人作品，技能互评、互教互学、颁奖优秀社员，搭配团建增进感情。</p>
+          <div class="timeline-tags">
+            <span class="timeline-tag">作品展示</span>
+            <span class="timeline-tag">技能互评</span>
+            <span class="timeline-tag">团建交流</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION: 社团风光 - 画廊
+     ============================================================ -->
+<section class="gallery" id="gallery">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">GALLERY</div>
+      <h2 class="section-title">社团风光 · 工作日常</h2>
+      <p class="section-subtitle">
+        设备检修现场、校园巡检日常、技能教学花絮、社团实训瞬间、团队合照、设计剪辑作品展示。
+      </p>
+    </div>
+  </div>
+
+  <!-- 画廊轮播 -->
+  <div class="gallery-track-wrap">
+    <div class="gallery-track" id="galleryTrack">
+      <!-- 第一组 8 张 -->
+      <div class="gallery-item">
+        <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=classroom%20multimedia%20equipment%20maintenance%20computer%20projector%20repair%20clean%20blue%20tone%20minimalist&image_size=landscape_4_3" alt="设备检修现场" loading="lazy" data-placeholder="检修现场 1">
+        <div class="gallery-caption">
+          <div class="gallery-caption-title">设备抢修现场</div>
+          <div class="gallery-caption-tag">检修部 · 教室维护</div>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=school%20classroom%20inspection%20checklist%20clipboard%20clean%20blue%20tone%20minimalist%20professional&image_size=landscape_4_3" alt="校园巡检日常" loading="lazy" data-placeholder="巡检日常 1">
+        <div class="gallery-caption">
+          <div class="gallery-caption-title">每周巡检打分</div>
+          <div class="gallery-caption-tag">运营部 · 全校巡检</div>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=computer%20repair%20training%20workshop%20students%20learning%20hardware%20blue%20tone%20clean%20minimalist&image_size=landscape_4_3" alt="技能教学花絮" loading="lazy" data-placeholder="教学花絮 1">
+        <div class="gallery-caption">
+          <div class="gallery-caption-title">维修实训课堂</div>
+          <div class="gallery-caption-tag">培训 · 电脑维修</div>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=WPS%20office%20software%20training%20laptop%20screen%20excel%20spreadsheet%20clean%20blue%20tone%20minimalist&image_size=landscape_4_3" alt="办公培训" loading="lazy" data-placeholder="办公培训 1">
+        <div class="gallery-caption">
+          <div class="gallery-caption-title">WPS 办公培训</div>
+          <div class="gallery-caption-tag">培训 · 运营部</div>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=video%20editing%20camera%20shooting%20behind%20scenes%20students%20blue%20tone%20minimalist%20clean&image_size=landscape_4_3" alt="拍摄实训" loading="lazy" data-placeholder="拍摄实训 1">
+        <div class="gallery-caption">
+          <div class="gallery-caption-title">拍摄剪辑实训</div>
+          <div class="gallery-caption-tag">实训 · 创新部</div>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=minimalist%20poster%20design%20blue%20white%20geometric%20typography%20clean%20layout%20graphic&image_size=landscape_4_3" alt="海报设计作品" loading="lazy" data-placeholder="设计作品 1">
+        <div class="gallery-caption">
+          <div class="gallery-caption-title">海报设计作品</div>
+          <div class="gallery-caption-tag">作品 · 创新部</div>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=student%20team%20group%20photo%20young%20people%20smiling%20outdoor%20blue%20tone%20minimalist%20clean&image_size=landscape_4_3" alt="团队合照" loading="lazy" data-placeholder="团队合照 1">
+        <div class="gallery-caption">
+          <div class="gallery-caption-title">社团年度合照</div>
+          <div class="gallery-caption-tag">合照 · 全体社员</div>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=programming%20code%20screen%20laptop%20learning%20students%20blue%20tone%20minimalist%20clean&image_size=landscape_4_3" alt="编程课堂" loading="lazy" data-placeholder="编程课堂 1">
+        <div class="gallery-caption">
+          <div class="gallery-caption-title">编程基础课堂</div>
+          <div class="gallery-caption-tag">培训 · 编程入门</div>
+        </div>
+      </div>
+
+      <!-- 复制第一组实现无缝循环 -->
+      <div class="gallery-item">
+        <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=classroom%20multimedia%20equipment%20maintenance%20computer%20projector%20repair%20clean%20blue%20tone%20minimalist&image_size=landscape_4_3" alt="设备检修现场" loading="lazy" data-placeholder="检修现场 1">
+        <div class="gallery-caption">
+          <div class="gallery-caption-title">设备抢修现场</div>
+          <div class="gallery-caption-tag">检修部 · 教室维护</div>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=school%20classroom%20inspection%20checklist%20clipboard%20clean%20blue%20tone%20minimalist%20professional&image_size=landscape_4_3" alt="校园巡检日常" loading="lazy" data-placeholder="巡检日常 1">
+        <div class="gallery-caption">
+          <div class="gallery-caption-title">每周巡检打分</div>
+          <div class="gallery-caption-tag">运营部 · 全校巡检</div>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=computer%20repair%20training%20workshop%20students%20learning%20hardware%20blue%20tone%20clean%20minimalist&image_size=landscape_4_3" alt="技能教学花絮" loading="lazy" data-placeholder="教学花絮 1">
+        <div class="gallery-caption">
+          <div class="gallery-caption-title">维修实训课堂</div>
+          <div class="gallery-caption-tag">培训 · 电脑维修</div>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=WPS%20office%20software%20training%20laptop%20screen%20excel%20spreadsheet%20clean%20blue%20tone%20minimalist&image_size=landscape_4_3" alt="办公培训" loading="lazy" data-placeholder="办公培训 1">
+        <div class="gallery-caption">
+          <div class="gallery-caption-title">WPS 办公培训</div>
+          <div class="gallery-caption-tag">培训 · 运营部</div>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=video%20editing%20camera%20shooting%20behind%20scenes%20students%20blue%20tone%20minimalist%20clean&image_size=landscape_4_3" alt="拍摄实训" loading="lazy" data-placeholder="拍摄实训 1">
+        <div class="gallery-caption">
+          <div class="gallery-caption-title">拍摄剪辑实训</div>
+          <div class="gallery-caption-tag">实训 · 创新部</div>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=minimalist%20poster%20design%20blue%20white%20geometric%20typography%20clean%20layout%20graphic&image_size=landscape_4_3" alt="海报设计作品" loading="lazy" data-placeholder="设计作品 1">
+        <div class="gallery-caption">
+          <div class="gallery-caption-title">海报设计作品</div>
+          <div class="gallery-caption-tag">作品 · 创新部</div>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=student%20team%20group%20photo%20young%20people%20smiling%20outdoor%20blue%20tone%20minimalist%20clean&image_size=landscape_4_3" alt="团队合照" loading="lazy" data-placeholder="团队合照 1">
+        <div class="gallery-caption">
+          <div class="gallery-caption-title">社团年度合照</div>
+          <div class="gallery-caption-tag">合照 · 全体社员</div>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=programming%20code%20screen%20laptop%20learning%20students%20blue%20tone%20minimalist%20clean&image_size=landscape_4_3" alt="编程课堂" loading="lazy" data-placeholder="编程课堂 1">
+        <div class="gallery-caption">
+          <div class="gallery-caption-title">编程基础课堂</div>
+          <div class="gallery-caption-tag">培训 · 编程入门</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <p class="gallery-foot reveal">
+      累计完成 <strong>500+</strong> 次教室检修 · 产出 <strong>200+</strong> 件原创作品
+    </p>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION: 加入我们 - 磨砂玻璃招新区
+     ============================================================ -->
+<section class="join" id="join">
+  <div class="join-decor join-decor-1"></div>
+  <div class="join-decor join-decor-2"></div>
+
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-eyebrow" style="color: var(--color-accent);">JOIN US</div>
+      <h2 class="section-title" style="color: var(--color-text);">加入我们 · 全员成长</h2>
+      <p class="section-subtitle" style="color: var(--color-text); opacity: 0.78;">
+        零基础可入、无需基础。分工科学、人人有事做，绝不打杂摸鱼。
+      </p>
+    </div>
+
+    <div class="join-content">
+      <!-- 左侧：社团简介与福利 -->
+      <div class="join-info reveal">
+        <div class="join-info-eyebrow">ABOUT US</div>
+        <h3 class="join-info-title">校园性价比最高的全能技术社团</h3>
+        <p class="join-info-text">
+          学校官方电教服务技术型社团，一边服务校园，一边免费学全套电脑、办公、编程、剪辑、设计技能。
+          分工科学、人人有事做，绝不打杂摸鱼 —— 加入即学，学即能用。
+        </p>
+
+        <div class="join-benefits">
+          <div class="join-benefit">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>零基础友好 · 无需任何基础</span>
+          </div>
+          <div class="join-benefit">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>分工科学 · 人人有事做</span>
+          </div>
+          <div class="join-benefit">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>免费培训 · 学长姐带教</span>
+          </div>
+          <div class="join-benefit">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>项目实战 · 真实设备实操</span>
+          </div>
+          <div class="join-benefit">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>三大部门 · 技能互通</span>
+          </div>
+          <div class="join-benefit">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>不打杂摸鱼 · 全员成长</span>
+          </div>
+        </div>
+
+        <div class="join-skills-title">六大可学技能</div>
+        <div class="join-skills">
+          <span class="join-skill">电脑运维维修</span>
+          <span class="join-skill">WPS 全套办公</span>
+          <span class="join-skill">编程基础入门</span>
+          <span class="join-skill">短视频拍摄剪辑</span>
+          <span class="join-skill">海报设计排版</span>
+          <span class="join-skill">台账统筹管理</span>
+        </div>
+      </div>
+
+      <!-- 右侧：二维码 + 报名步骤 -->
+      <div class="join-qr reveal">
+        <h3 class="join-qr-title">扫码加入招新群</h3>
+        <p class="join-qr-subtitle">QQ 群 / 微信群 · 实时答疑</p>
+
+        <!-- QR 占位区 -->
+        <div class="qr-placeholder" id="qr-placeholder" data-placeholder="招新群二维码">
+          <div class="qr-pattern">
+            <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+            <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+            <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+            <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+            <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+            <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+            <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+            <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+          </div>
+          <div class="qr-corner qr-corner-tl"></div>
+          <div class="qr-corner qr-corner-tr"></div>
+          <div class="qr-corner qr-corner-bl"></div>
+          <div class="qr-corner qr-corner-br"></div>
+        </div>
+
+        <p class="join-qr-note">扫描上方二维码 · 加入招新答疑群</p>
+
+        <div class="join-steps">
+          <div class="join-steps-title">报名指南</div>
+          <div class="join-step">
+            <div class="join-step-num">1</div>
+            <span>扫码进入招新群 · 了解三大部门方向</span>
+          </div>
+          <div class="join-step">
+            <div class="join-step-num">2</div>
+            <span>填写报名表 · 选择意向部门</span>
+          </div>
+          <div class="join-step">
+            <div class="join-step-num">3</div>
+            <span>参加面试交流 · 与学长姐面对面</span>
+          </div>
+          <div class="join-step">
+            <div class="join-step-num">4</div>
+            <span>收到录取通知 · 正式加入社团</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION: 页脚
+     ============================================================ -->
+<footer class="footer" id="footer">
+  <div class="container">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <a href="#hero" class="nav-logo">
+          <span class="nav-logo-mark">M</span>
+          <span>多媒体协会</span>
+        </a>
+        <p class="footer-brand-text">
+          学校官方电教服务技术型社团 · 服务校园、实操学技、全员成长、劳逸结合。
+          欢迎每一个想学电脑、办公、编程、剪辑、设计的你，加入我们的技术旅程。
+        </p>
+      </div>
+
+      <div>
+        <div class="footer-col-title">导航</div>
+        <a href="#departments" class="footer-link">部门介绍</a>
+        <a href="#activities" class="footer-link">社团活动</a>
+        <a href="#gallery" class="footer-link">社团风光</a>
+        <a href="#join" class="footer-link">加入我们</a>
+      </div>
+
+      <div>
+        <div class="footer-col-title">部门</div>
+        <a href="#departments" class="footer-link">检修部</a>
+        <a href="#departments" class="footer-link">运营部</a>
+        <a href="#departments" class="footer-link">创新部</a>
+      </div>
+
+      <div>
+        <div class="footer-col-title">联系</div>
+        <a href="#join" class="footer-link">招新咨询</a>
+        <a href="#join" class="footer-link">报修联系</a>
+        <a href="#join" class="footer-link">合作洽谈</a>
+        <a href="#join" class="footer-link">活动预约</a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div>© 2026 校园多媒体协会 · 服务校园 · 实操学技 · 全员成长</div>
+      <div class="footer-social">
+        <a href="#join" class="footer-social-link" aria-label="微信">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+        </a>
+        <a href="#join" class="footer-social-link" aria-label="QQ">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+        </a>
+        <a href="#join" class="footer-social-link" aria-label="B站">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="14" rx="2"/><path d="M10 9l5 3-5 3z" fill="currentColor"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ============================================================
+     JavaScript - 全站动效
+     ============================================================ -->
+<script>
+(function() {
+  'use strict';
+
+  /* 模块 1: 导航栏滚动变色 + 锚点高亮 */
+  const NavScroll = {
+    nav: document.getElementById('nav'),
+    navLinks: document.querySelectorAll('.nav-link'),
+    sections: ['departments', 'activities', 'gallery', 'join'],
+
+    init() {
+      window.addEventListener('scroll', this.onScroll.bind(this), { passive: true });
+      this.onScroll();
+    },
+
+    onScroll() {
+      const scrollY = window.scrollY;
+      this.nav.classList.toggle('scrolled', scrollY > 50);
+
+      const offset = window.innerHeight * 0.4;
+      let activeSection = null;
+      this.sections.forEach(id => {
+        const el = document.getElementById(id);
+        if (el && el.offsetTop - offset <= scrollY) activeSection = id;
+      });
+      this.navLinks.forEach(link => {
+        const href = link.getAttribute('href').replace('#', '');
+        link.classList.toggle('active', href === activeSection);
+      });
+    }
+  };
+
+  /* 模块 2: 移动端汉堡菜单 */
+  const MobileNav = {
+    toggle: document.getElementById('navToggle'),
+    links: document.getElementById('navLinks'),
+
+    init() {
+      if (!this.toggle) return;
+      this.toggle.addEventListener('click', this.toggleMenu.bind(this));
+      this.links.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', () => this.closeMenu());
+      });
+    },
+
+    toggleMenu() {
+      this.toggle.classList.toggle('open');
+      this.links.classList.toggle('open');
+    },
+
+    closeMenu() {
+      this.toggle.classList.remove('open');
+      this.links.classList.remove('open');
+    }
+  };
+
+  /* 模块 3: 滚动渐入 */
+  const ScrollReveal = {
+    init() {
+      const items = document.querySelectorAll('.reveal, .reveal-stagger');
+      if (!('IntersectionObserver' in window)) {
+        items.forEach(el => el.classList.add('is-visible'));
+        return;
+      }
+      const observer = new IntersectionObserver(this.onIntersect, {
+        threshold: 0.15, rootMargin: '0px 0px -80px 0px'
+      });
+      items.forEach(el => observer.observe(el));
+    },
+
+    onIntersect(entries, observer) {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }
+  };
+
+  /* 模块 4: 时间轴递进加载 */
+  const TimelineReveal = {
+    items: document.querySelectorAll('.timeline-item'),
+
+    init() {
+      if (!('IntersectionObserver' in window)) {
+        this.items.forEach(el => el.classList.add('is-visible'));
+        return;
+      }
+      const observer = new IntersectionObserver(this.onIntersect, {
+        threshold: 0.2, rootMargin: '0px 0px -100px 0px'
+      });
+      this.items.forEach((el, i) => {
+        el.style.transitionDelay = (i * 0.1) + 's';
+        observer.observe(el);
+      });
+    },
+
+    onIntersect(entries, observer) {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }
+  };
+
+  /* 模块 5: 画廊触摸支持 */
+  const GalleryCarousel = {
+    track: document.getElementById('galleryTrack'),
+    wrap: document.querySelector('.gallery-track-wrap'),
+
+    init() {
+      if (!this.track) return;
+      this.wrap.addEventListener('touchstart', () => {
+        this.track.style.animationPlayState = 'paused';
+      }, { passive: true });
+      this.wrap.addEventListener('touchend', () => {
+        this.track.style.animationPlayState = 'running';
+      }, { passive: true });
+    }
+  };
+
+  document.addEventListener('DOMContentLoaded', () => {
+    NavScroll.init();
+    MobileNav.init();
+    ScrollReveal.init();
+    TimelineReveal.init();
+    GalleryCarousel.init();
+  });
+})();
+</script>
+
+</body>
+</html>
