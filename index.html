@@ -595,6 +595,74 @@ section { position: relative; padding: var(--space-section) 0; }
 .footer-social-link svg { width: 18px; height: 18px; }
 
 /* ============================================================
+   背景音乐控制按钮
+   ============================================================ */
+.music-btn {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-blue-deep), var(--color-accent));
+  box-shadow: 0 8px 24px -6px rgba(37, 99, 235, 0.45);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  z-index: 99;
+  border: none;
+  transition: transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out);
+}
+.music-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 12px 28px -4px rgba(37, 99, 235, 0.55);
+}
+.music-btn svg {
+  width: 22px;
+  height: 22px;
+  color: white;
+  transition: opacity 0.3s;
+}
+.music-btn.playing {
+  animation: music-spin 6s linear infinite;
+}
+.music-btn.playing .icon-pause { display: block; }
+.music-btn.playing .icon-play { display: none; }
+.music-btn .icon-pause { display: none; }
+.music-btn .icon-play { display: block; }
+@keyframes music-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.music-btn.playing:hover {
+  animation-play-state: paused;
+}
+
+/* 音乐符号特效 */
+.music-note {
+  position: fixed;
+  color: var(--color-accent);
+  font-size: 18px;
+  font-weight: 700;
+  pointer-events: none;
+  opacity: 0;
+  animation: note-float 2.2s ease-out forwards;
+}
+@keyframes note-float {
+  0% {
+    opacity: 0;
+    transform: translateY(0) scale(0.5) rotate(0deg);
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-60px) scale(1) rotate(25deg);
+  }
+}
+
+/* ============================================================
    响应式
    ============================================================ */
 @media (max-width: 1024px) {
@@ -1277,6 +1345,15 @@ section { position: relative; padding: var(--space-section) 0; }
   </div>
 </footer>
 
+<!-- 背景音乐 -->
+<audio id="bgMusic" loop preload="auto">
+  <source src="https://img2.tofaka.com/autoupload/fr/0h5VXIv3w0JYiVOfzqEfO_AA6VvCCdTL_gA5GP8HPYayl5f0KlZfm6UsKj-HyTuv/20260923/Fkz2/%5BNo_Copyright_Background_Music%5D_Happy_Fun_Feel_Good_Guitar_%EF%BD%9C_Tides_%26_Smiles_by_Moavii.mp3" type="audio/mpeg">
+</audio>
+<button class="music-btn" id="musicBtn" aria-label="背景音乐开关" title="背景音乐">
+  <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+  <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+</button>
+
 <!-- ============================================================
      JavaScript - 全站动效
      ============================================================ -->
@@ -1502,6 +1579,69 @@ section { position: relative; padding: var(--space-section) 0; }
     }
   };
 
+  /* 模块 7: 背景音乐控制 */
+  const MusicPlayer = {
+    audio: document.getElementById('bgMusic'),
+    btn: document.getElementById('musicBtn'),
+    isPlaying: false,
+    noteTimer: null,
+    noteSymbols: ['♪', '♫', '♩', '♬'],
+    init() {
+      if (!this.audio || !this.btn) return;
+      this.audio.volume = 0.5;
+      this.btn.addEventListener('click', () => this.toggle());
+      const tryPlay = () => {
+        this.audio.play().then(() => {
+          this.isPlaying = true;
+          this.btn.classList.add('playing');
+          this.startNotes();
+        }).catch(() => {});
+      };
+      tryPlay();
+      const onFirstInteract = () => {
+        if (!this.isPlaying) tryPlay();
+        document.removeEventListener('click', onFirstInteract);
+        document.removeEventListener('touchstart', onFirstInteract);
+        document.removeEventListener('keydown', onFirstInteract);
+      };
+      document.addEventListener('click', onFirstInteract);
+      document.addEventListener('touchstart', onFirstInteract);
+      document.addEventListener('keydown', onFirstInteract);
+    },
+    startNotes() {
+      this.stopNotes();
+      this.noteTimer = setInterval(() => this.spawnNote(), 600);
+    },
+    stopNotes() {
+      if (this.noteTimer) { clearInterval(this.noteTimer); this.noteTimer = null; }
+    },
+    spawnNote() {
+      const note = document.createElement('span');
+      note.className = 'music-note';
+      note.textContent = this.noteSymbols[Math.floor(Math.random() * this.noteSymbols.length)];
+      const rect = this.btn.getBoundingClientRect();
+      const left = rect.left + Math.random() * rect.width;
+      note.style.left = left + 'px';
+      note.style.top = (rect.top + rect.height * 0.3) + 'px';
+      document.body.appendChild(note);
+      setTimeout(() => note.remove(), 2200);
+    },
+    toggle() {
+      if (this.isPlaying) {
+        this.audio.pause();
+        this.isPlaying = false;
+        this.btn.classList.remove('playing');
+        this.stopNotes();
+      } else {
+        this.audio.play().then(() => {
+          this.isPlaying = true;
+          this.btn.classList.add('playing');
+          this.startNotes();
+        }).catch(() => {});
+      }
+    }
+  };
+
   // 禁用浏览器滚动位置恢复，确保每次打开都从顶部开始
   if ('scrollRestoration' in history) {
     history.scrollRestoration = 'manual';
@@ -1521,6 +1661,7 @@ section { position: relative; padding: var(--space-section) 0; }
     TimelineReveal.init();
     GalleryCarousel.init();
     ImageFadeIn.init();
+    MusicPlayer.init();
   });
 })();
 </script>
